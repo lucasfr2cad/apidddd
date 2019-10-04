@@ -1,0 +1,8 @@
+C:\Users\Fogaça\Documents\testeddd\src\Api.CrossCutting\bin\Debug\netcoreapp3.0\CrossCutting.deps.json
+C:\Users\Fogaça\Documents\testeddd\src\Api.CrossCutting\bin\Debug\netcoreapp3.0\CrossCutting.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.CrossCutting\bin\Debug\netcoreapp3.0\CrossCutting.pdb
+C:\Users\Fogaça\Documents\testeddd\src\Api.CrossCutting\obj\Debug\netcoreapp3.0\CrossCutting.csprojAssemblyReference.cache
+C:\Users\Fogaça\Documents\testeddd\src\Api.CrossCutting\obj\Debug\netcoreapp3.0\CrossCutting.AssemblyInfoInputs.cache
+C:\Users\Fogaça\Documents\testeddd\src\Api.CrossCutting\obj\Debug\netcoreapp3.0\CrossCutting.AssemblyInfo.cs
+C:\Users\Fogaça\Documents\testeddd\src\Api.CrossCutting\obj\Debug\netcoreapp3.0\CrossCutting.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.CrossCutting\obj\Debug\netcoreapp3.0\CrossCutting.pdb
