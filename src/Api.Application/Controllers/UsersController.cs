@@ -80,5 +80,32 @@ namespace Api.Application.Controllers
             }
          }
 
+         [HttpPut]
+         public async Task<ActionResult> Put([FromBody] UserEntity user)
+         {
+                 if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); //400 
+            }
+              try
+            {
+                var result = await _service.Put(user);
+                
+                if(result != null)
+                {
+                    // caso criado retorna o objeto criado e no cabeçalho uma url para a consulta
+                    return Ok (result);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (ArgumentException e)
+            {
+                return StatusCode ((int) HttpStatusCode.InternalServerError, e.Message);
+            }
+         }
+
     }
 }
