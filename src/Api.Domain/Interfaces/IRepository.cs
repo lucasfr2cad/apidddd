@@ -15,6 +15,8 @@ namespace Api.Data.Repository
 
      Task<T> SelectAsync(Guid id);
 
-     Task<IEnumerable<T>> SelectAsync();    
+     Task<IEnumerable<T>> SelectAsync();
+
+     Task<bool> ExistAsync(Guid id);    
     }
 }
