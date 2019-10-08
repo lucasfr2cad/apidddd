@@ -41,3 +41,7 @@ C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\
 C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\Fogaça\Documents\testeddd\src\Api.Application\obj\Debug\netcoreapp3.0\Aplication.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\System.IdentityModel.Tokens.Jwt.dll
