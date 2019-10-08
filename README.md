@@ -1,4 +1,4 @@
-# API em .Net Core baseada em DDD + SwaggerUI
+# API em .Net Core baseada em DDD + SwaggerUI + JWT
 
 
 O DDD (Domain Driven Design) é uma modelagem de software cujo objetivo é facilitar a implementação de regras e processos complexos, onde visa a divisão de responsabilidades por camadas e é independente da tecnologia utilizada.
