@@ -1,4 +1,4 @@
-# API em .Net Core baseada em DDD
+# API em .Net Core baseada em DDD + SwaggerUI
 
 
 O DDD (Domain Driven Design) é uma modelagem de software cujo objetivo é facilitar a implementação de regras e processos complexos, onde visa a divisão de responsabilidades por camadas e é independente da tecnologia utilizada.
@@ -49,3 +49,5 @@ Essa camada será responsável por conectar ao banco de dados e realizar as pers
 ## Aplication
 * Esta camada é a “porta de entrada” do sistema, pois é nela que conterá os controladores e serviços para efetuar as chamadas na API.
 * Dentro da pasta Controllers, cria-se uma classe chamada UserController
+
+![](https://i.imgur.com/odY6lJu.png)
