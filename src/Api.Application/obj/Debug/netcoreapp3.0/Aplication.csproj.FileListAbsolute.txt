@@ -30,3 +30,14 @@ C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\
 C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\CrossCutting.pdb
 C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Data.pdb
 C:\Users\Fogaça\Documents\testeddd\src\Api.Application\obj\Debug\netcoreapp3.0\Aplication.csproj.CopyComplete
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Microsoft.OpenApi.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Newtonsoft.Json.Bson.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\obj\Debug\netcoreapp3.0\Aplication.MvcApplicationPartsAssemblyInfo.cs
