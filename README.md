@@ -19,11 +19,9 @@ Possui referências da camada Domain.
 ### Camadas
 
 ### Camada Dominio
-* Contém duas pastas, uma para declarar as entidades e outra para declarar as interfaces que serão utilizadas
-* Dentro da pasta de entidades desenvolve-se uma classe chamada BaseEntity, a qual terá a propriedade Id, UpdateAT e CreateAT. Esta classe será herdada por todas as outras entidades criadas, obrigando todos os modelos a possuírem um Id. E gera-se outra classe chamada User.
-* Na pasta destinada as interfaces, desenvolve-se as mesmas referentes a implementação de repositórios e serviços.
-* Obs’.: Ambas as interfaces são genéricas, onde recebem um modelo (T) como parâmetro, identificando sobre qual entidade àquela interface irá atuar.
 
+A Domain possui as Entidades de Bancos de Dados e Interfaces, pois a Domain é aquela que todas as camadas
+irá trabalhar, centralizei as interfaces e Entidades para Gerenciar melhor a injeção de Dependencias.
 
 ### Data
 
@@ -39,15 +37,17 @@ Essa camada será responsável por conectar ao banco de dados e realizar as pers
 
 
 ## CrossCutting
-* Classes responsavéis por manter a injeção de depêndica nos serviços do startup
+* Classes responsavéis por manter a injeção de depêndica nos serviços do startup e realizar funções externas como Consulta de um CEP em outra API Externa
 
 ## Service
 
 * É uma classe genérica utilizada para centralizar o CRUD, onde passa-se uma entidade como parâmetro, a qual irá trabalhar os serviços em cima da mesma, igualmente feito com o repositório.
 
+* Criada para organizar os serviços e dentro dela quando o projeto começar a crescer
+pode subdivir em Pastas como CLiente, Produto etc...
 
 ## Aplication
+
 * Esta camada é a “porta de entrada” do sistema, pois é nela que conterá os controladores e serviços para efetuar as chamadas na API.
-* Dentro da pasta Controllers, cria-se uma classe chamada UserController
 
 ![](https://i.imgur.com/vn6Qc0l.png)
