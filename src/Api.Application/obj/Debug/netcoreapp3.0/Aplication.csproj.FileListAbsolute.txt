@@ -45,3 +45,6 @@ C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\
 C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Logging.dll
 C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll

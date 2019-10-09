@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.Services.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Application.Controllers
@@ -17,6 +18,7 @@ namespace Api.Application.Controllers
             _service = service;
         }
 
+        [Authorize("Bearer")]
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
@@ -34,6 +36,7 @@ namespace Api.Application.Controllers
             }
         }
 
+        [Authorize("Bearer")]
         [HttpGet]
         [Route("{id}", Name = "GetWhithId")]
 
@@ -53,7 +56,7 @@ namespace Api.Application.Controllers
             }
 
          }
-
+         [Authorize("Bearer")]
          [HttpPost]
          public async Task<ActionResult> Post([FromBody] UserEntity user)
          {
@@ -79,7 +82,7 @@ namespace Api.Application.Controllers
                 return StatusCode ((int) HttpStatusCode.InternalServerError, e.Message);
             }
          }
-
+         [Authorize("Bearer")]
          [HttpPut]
          public async Task<ActionResult> Put([FromBody] UserEntity user)
          {
@@ -106,7 +109,7 @@ namespace Api.Application.Controllers
                 return StatusCode ((int) HttpStatusCode.InternalServerError, e.Message);
             }
          }
-
+         [Authorize("Bearer")]
          [HttpDelete ("{id}")]
          public async Task<ActionResult> Delete(Guid id)
          {
