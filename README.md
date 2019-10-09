@@ -50,4 +50,4 @@ Essa camada será responsável por conectar ao banco de dados e realizar as pers
 * Esta camada é a “porta de entrada” do sistema, pois é nela que conterá os controladores e serviços para efetuar as chamadas na API.
 * Dentro da pasta Controllers, cria-se uma classe chamada UserController
 
-![](https://i.imgur.com/odY6lJu.png)
+![](https://i.imgur.com/vn6Qc0l.png)
