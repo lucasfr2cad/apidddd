@@ -42,12 +42,20 @@ namespace Api.Service.Services
             if(user != null && !string.IsNullOrWhiteSpace(user.Email))
             {
                 baseUser = await _repository.FindByLogin(user.Email);
-                if(baseUser == null)
+                if((baseUser == null)||(baseUser.Senha != user.Senha))
                 {
+                    if(baseUser == null){
                     return new
                     {
                         authenticated = false,
-                        message = "Falha ao autenticar"
+                        message = "Não encontrado conta com esse email"
+                    };    
+                    }
+                    else
+                    return new
+                    {
+                        authenticated = false,
+                        message = "Senha incorreta"
                     };
                 }
                 else
@@ -101,6 +109,7 @@ namespace Api.Service.Services
                 expiration = expirationDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 acessToken = token,
                 userName = user.Email,
+                userPass = "HAHAHAHA",
                 message = "Usuário Logado com Sucesso"
             };
         }
