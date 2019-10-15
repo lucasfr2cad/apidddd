@@ -28,11 +28,26 @@ namespace Aplication
             Configuration = configuration;
         }
 
+         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddCors(options =>
+        {
+            options.AddPolicy(MyAllowSpecificOrigins,
+            builder =>
+            {
+                builder.WithOrigins("http://localhost:3000/",
+                                    "http://localhost:3000"
+                                    )
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+            });
+        });
            
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
@@ -69,7 +84,7 @@ namespace Aplication
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo 
+                c.SwaggerDoc("v2", new OpenApiInfo 
                 {
                      Title = "API Glass CAD", 
                      Version = "v1",
@@ -108,13 +123,14 @@ namespace Aplication
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
             {
             c.RoutePrefix = string.Empty;
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Glass CAD");
+            c.SwaggerEndpoint("/swagger/v2/swagger.json", "API Glass CAD");
             });
 
             var option = new RewriteOptions ();

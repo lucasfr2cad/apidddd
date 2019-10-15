@@ -56,6 +56,8 @@ namespace Api.Application.Controllers
             }
 
          }
+
+
          [Authorize("Bearer")]
          [HttpPost]
          public async Task<ActionResult> Post([FromBody] UserEntity user)
@@ -82,6 +84,7 @@ namespace Api.Application.Controllers
                 return StatusCode ((int) HttpStatusCode.InternalServerError, e.Message);
             }
          }
+         
          [Authorize("Bearer")]
          [HttpPut]
          public async Task<ActionResult> Put([FromBody] UserEntity user)

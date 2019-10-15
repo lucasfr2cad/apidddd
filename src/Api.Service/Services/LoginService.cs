@@ -34,6 +34,12 @@ namespace Api.Service.Services
             _configuration = configuration;
         }
 
+      public async Task<UserEntity> Post(UserEntity user)
+        {
+            return await _repository.InsertAsync(user);
+        }
+
+
         public async Task<object> FindByLogin(LoginDto user)
         {
 
@@ -48,14 +54,14 @@ namespace Api.Service.Services
                     return new
                     {
                         authenticated = false,
-                        message = "Não encontrado conta com esse email"
+                        message = "Email não cadastrado!"
                     };    
                     }
                     else
                     return new
                     {
                         authenticated = false,
-                        message = "Senha incorreta"
+                        message = "Senha incorreta!"
                     };
                 }
                 else
