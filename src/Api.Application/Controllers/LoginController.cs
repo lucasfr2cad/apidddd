@@ -22,7 +22,7 @@ namespace Api.Application.Controllers
         }
 
         [AllowAnonymous]
-         [HttpPut]
+         [HttpPost]
          public async Task<object> Login([FromBody] LoginDto loginDto)
          {
              if(!ModelState.IsValid)
@@ -35,6 +35,8 @@ namespace Api.Application.Controllers
              }
              try
              {
+              var remoteIpAddress = HttpContext.Connection.RemoteIpAddress; 
+              loginDto.Ip = remoteIpAddress.ToString();
               var result = await _service.FindByLogin(loginDto);
               if(result != null)
               {
@@ -52,33 +54,33 @@ namespace Api.Application.Controllers
              }
          }
 
-        [AllowAnonymous]
-        [HttpPost]
-         public async Task<ActionResult> Post([FromBody] UserEntity user)
-         {
-               if(!ModelState.IsValid)
-            {
-                return BadRequest(ModelState); //400 
-            }
-              try
-            {
-                var result = await _service.Post(user);
-                if(result != null)
-                {
-                    result.Senha = "Magic Word";
-                    // caso criado retorna o objeto criado e no cabeçalho uma url para a consulta
-                    return Created (new Uri(Url.Link("GetWhithId", new {id = result.Id})), result);
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            catch (ArgumentException e)
-            {
-                return StatusCode ((int) HttpStatusCode.InternalServerError, e.Message);
-            }
-         }
+        // [AllowAnonymous]
+        // [HttpPost]
+        //  public async Task<ActionResult> Post([FromBody] UserEntity user)
+        //  {
+        //        if(!ModelState.IsValid)
+        //     {
+        //         return BadRequest(ModelState); //400 
+        //     }
+        //       try
+        //     {
+        //         var result = await _service.Post(user);
+        //         if(result != null)
+        //         {
+        //             result.ds_senha = "Magic Word";
+        //             // caso criado retorna o objeto criado e no cabeçalho uma url para a consulta
+        //             return Created (new Uri(Url.Link("GetWhithId", new {id = result.cd_codigo})), result);
+        //         }
+        //         else
+        //         {
+        //             return BadRequest();
+        //         }
+        //     }
+        //     catch (ArgumentException e)
+        //     {
+        //         return StatusCode ((int) HttpStatusCode.InternalServerError, e.Message);
+        //     }
+        //  }
          
         
     }

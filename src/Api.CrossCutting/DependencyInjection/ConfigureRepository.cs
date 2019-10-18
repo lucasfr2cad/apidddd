@@ -15,7 +15,7 @@ namespace Api.CrossCutting.DependencyInjection
             serviceColletion.AddScoped<IUserRepository, UserImplementation>();
 
              serviceColletion.AddDbContext<MyContext>(
-                options => options.UseNpgsql("Host=localhost;Port=5432;Pooling=true;Database=teste;User Id=rei;Password=teste;")
+                options => options.UseNpgsql("Host=10.0.0.10;Port=5432;Database=gcad;User Id=rei;Password=teste;")
             );
         }
     }

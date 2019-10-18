@@ -19,12 +19,12 @@ namespace Api.Data.Repository
             _context = context;
             _dataset = _context.Set<T>();
         }
-        public async Task<bool> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid cd_codigo)
         {
             try
             {
                  // pega o objeto e procura no banco - se achar trás o objeto  ou volta nulo
-                 var result = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
+                 var result = await _dataset.SingleOrDefaultAsync(p => p.cd_codigo.Equals(cd_codigo));
                 //se for nulo, para e retorna false
                 if(result== null)
                     return false;
@@ -41,21 +41,20 @@ namespace Api.Data.Repository
             }
         }
 
-        public async Task<bool> ExistAsync(Guid id)
+        public async Task<bool> ExistAsync(Guid cd_codigo)
         {
-            return await _dataset.AnyAsync(p => p.Id.Equals(id));
+            return await _dataset.AnyAsync(p => p.cd_codigo.Equals(cd_codigo));
         }
 
         public async Task<T> InsertAsync(T item)
         {
            try
            {
-               //veriufica se veio com Id, se não seta com Guid
-               if(item.Id == Guid.Empty){
-                   item.Id = Guid.NewGuid();
-               }
-               //cria o creatat com o a data correta do servidor
-                item.CreateAt = DateTime.UtcNow;
+               //veriufica se veio com cd_codigo, se não seta com Gucd_codigo
+            //    if(item.cd_codigo == Guid.Empty){
+            //        item.cd_codigo = Guid.NewGuid();
+            //    }
+               //cria o creatat com o a data correta do servcd_codigoor
                 //add o item ao banco
                 _dataset.Add(item);
                 //salva no banco se deu tudo ok
@@ -71,12 +70,12 @@ namespace Api.Data.Repository
            return item;
         }
 
-        public async Task<T> SelectAsync(Guid id)
+        public async Task<T> SelectAsync(Guid cd_codigo)
         {
             try
             {
                 //pega o objeto e procura no banco - se achar trás o objeto  ou volta nulo
-                return await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(id));
+                return await _dataset.SingleOrDefaultAsync(p => p.cd_codigo.Equals(cd_codigo));
             }
             catch (Exception ex)
             {
@@ -98,20 +97,16 @@ namespace Api.Data.Repository
             }
         }
 
-        //recebe uma entidade
+        //recebe uma entcd_codigoade
         public async Task<T> UpdateAsync(T item)
         {
             try
             {
-                // pega o objeto e procura no banco - se achar trás o objeto preenchido ou volta nulo
-                var result = await _dataset.SingleOrDefaultAsync(p => p.Id.Equals(item.Id));
+                // pega o objeto e procura no banco - se achar trás o objeto preenchcd_codigoo ou volta nulo
+                var result = await _dataset.SingleOrDefaultAsync(p => p.cd_codigo.Equals(item.cd_codigo));
                 //se for nulo, para e retorna null
                 if(result== null)
                     return null;
-                
-                //atualiza os campos de updateat e createat
-                item.UpdateAt = DateTime.UtcNow;
-                item.CreateAt = result.CreateAt;
 
                 //o contexto pega o result, pega os dados correntes e seta os valores no objeto
                 _context.Entry(result).CurrentValues.SetValues(item);

@@ -48,7 +48,7 @@ namespace Api.Service.Services
             if(user != null && !string.IsNullOrWhiteSpace(user.Email))
             {
                 baseUser = await _repository.FindByLogin(user.Email);
-                if((baseUser == null)||(baseUser.Senha != user.Senha))
+                if((baseUser == null)||(baseUser.ds_senha != user.Senha))
                 {
                     if(baseUser == null){
                     return new
@@ -67,7 +67,7 @@ namespace Api.Service.Services
                 else
                 {
                     var identity = new ClaimsIdentity(
-                        new GenericIdentity(baseUser.Email),
+                        new GenericIdentity(baseUser.ds_nome),
                         new[]
                         {
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), //jti O Id do Token

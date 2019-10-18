@@ -72,7 +72,7 @@ namespace Api.Application.Controllers
                 if(result != null)
                 {
                     // caso criado retorna o objeto criado e no cabeçalho uma url para a consulta
-                    return Created (new Uri(Url.Link("GetWhithId", new {id = result.Id})), result);
+                    return Created (new Uri(Url.Link("GetWhithId", new {id = result.cd_codigo})), result);
                 }
                 else
                 {
