@@ -17,7 +17,7 @@ namespace Api.Application.Controllers
         {
             _service = service;
         }
-
+      //  [Authorize(Policy = "actionRequirement")]
         [Authorize("Bearer")]
         [HttpGet]
         public async Task<ActionResult> GetAll()
@@ -40,7 +40,7 @@ namespace Api.Application.Controllers
         [HttpGet]
         [Route("{id}", Name = "GetWhithId")]
 
-         public async Task<ActionResult> Get(Guid id)
+         public async Task<ActionResult> Get(int id)
          {
              if(!ModelState.IsValid)
             {
@@ -114,7 +114,7 @@ namespace Api.Application.Controllers
          }
          [Authorize("Bearer")]
          [HttpDelete ("{id}")]
-         public async Task<ActionResult> Delete(Guid id)
+         public async Task<ActionResult> Delete(int id)
          {
              if(!ModelState.IsValid)
             {

@@ -36,7 +36,7 @@ namespace Api.Application.Controllers
              try
              {
               var remoteIpAddress = HttpContext.Connection.RemoteIpAddress; 
-              loginDto.Ip = remoteIpAddress.ToString();
+             // loginDto.Ip = remoteIpAddress.ToString();
               var result = await _service.FindByLogin(loginDto);
               if(result != null)
               {

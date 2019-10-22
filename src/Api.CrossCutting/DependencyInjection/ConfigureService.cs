@@ -1,3 +1,5 @@
+using Api.Domain.Interfaces.Services.Permission;
+using Api.Domain.Interfaces.Services.Session;
 using Api.Domain.Interfaces.Services.User;
 using Api.Service.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,8 +10,10 @@ namespace Api.CrossCutting.DependencyInjection
     {
         public static void ConfigureDependenciesService(IServiceCollection serviceColletion)
         {
-            serviceColletion.AddTransient<IUserService, UserService>();
-            serviceColletion.AddTransient<ILoginService, LoginService>();
+            serviceColletion.AddScoped<IUserService, UserService>();
+            serviceColletion.AddScoped<ILoginService, LoginService>();
+            serviceColletion.AddScoped<ISessionService, SessionService>();
+            serviceColletion.AddScoped<IPermissionService, PermissionService>();
         }
     }
 }

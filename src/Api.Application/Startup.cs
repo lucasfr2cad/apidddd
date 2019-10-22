@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +49,8 @@ namespace Aplication
                                 .AllowAnyMethod();
             });
         });
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
            
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
@@ -78,6 +81,17 @@ namespace Aplication
                 auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
                 .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                 .RequireAuthenticatedUser().Build());
+            });
+
+            
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("actionRequirement", policy =>
+                {
+                    policy.Requirements.Add(new Api.Application.Policy.actionRequirement());
+                    policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+                    policy.RequireAuthenticatedUser();
+                });
             });
 
             services.AddControllers();

@@ -19,7 +19,7 @@ namespace Api.Data.Repository
             _context = context;
             _dataset = _context.Set<T>();
         }
-        public async Task<bool> DeleteAsync(Guid cd_codigo)
+        public async Task<bool> DeleteAsync(int cd_codigo)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace Api.Data.Repository
             }
         }
 
-        public async Task<bool> ExistAsync(Guid cd_codigo)
+        public async Task<bool> ExistAsync(int cd_codigo)
         {
             return await _dataset.AnyAsync(p => p.cd_codigo.Equals(cd_codigo));
         }
@@ -70,7 +70,7 @@ namespace Api.Data.Repository
            return item;
         }
 
-        public async Task<T> SelectAsync(Guid cd_codigo)
+        public async Task<T> SelectAsync(int cd_codigo)
         {
             try
             {

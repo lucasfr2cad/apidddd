@@ -10,5 +10,8 @@ namespace Api.Domain.Interfaces.Services.User
 
           Task<UserEntity> Post (UserEntity user);
 
+
+          Task<SessionEntity> UnchekSession (int id);
+
     }
 }

@@ -12,6 +12,7 @@ namespace Api.Domain.Dtos
         [Required (ErrorMessage = "Senha é um campo obrigatório")]
         public string Senha { get; set; }
 
-        public string Ip { get; set; }
+        public int sessionId { get; set; }
+
     }
 }

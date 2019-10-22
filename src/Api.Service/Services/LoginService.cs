@@ -23,12 +23,18 @@ namespace Api.Service.Services
 
         private IConfiguration _configuration {get;}
 
+
+        private ISessionRepository _repository2;
+
         public LoginService(IUserRepository repository, 
         SigningConfigurations signingConfigurations,
         TokenConfigurations tokenConfigurations,
-        IConfiguration configuration)
+        IConfiguration configuration,
+        ISessionRepository repository2
+        )
         {
             _repository = repository;
+            _repository2 = repository2;
             _signingConfigurations = signingConfigurations;
             _tokenConfigurations = tokenConfigurations;
             _configuration = configuration;
@@ -39,17 +45,40 @@ namespace Api.Service.Services
             return await _repository.InsertAsync(user);
         }
 
+        public async Task<int> CheckSession(UserEntity user )
+        {   
+         return await _repository2.CheckSession(user.cd_codigo);
+        }
+
+        public async Task<SessionEntity> UnchekSession(int id)
+        {
+            var result = await _repository2.SelectAsync(id);
+            result.st_ativo = false;
+            return await _repository2.UpdateAsync(result);
+        }
+
+        public async Task<SessionEntity> InserteSession(SessionEntity session)
+        {
+            return await _repository2.InsertAsync(session);
+        } 
 
         public async Task<object> FindByLogin(LoginDto user)
         {
 
             var baseUser = new UserEntity();
 
+
             if(user != null && !string.IsNullOrWhiteSpace(user.Email))
             {
                 baseUser = await _repository.FindByLogin(user.Email);
+
+
+                 var activeSessions = await CheckSession(baseUser);
+
+
                 if((baseUser == null)||(baseUser.ds_senha != user.Senha))
                 {
+                    
                     if(baseUser == null){
                     return new
                     {
@@ -66,20 +95,39 @@ namespace Api.Service.Services
                 }
                 else
                 {
+                    if(baseUser.vl_max_sessoes - activeSessions <= 0){
+                        return new
+                    {
+                        authenticated = false,
+                        message = "Número máximo de sessões ativas!"
+                    };    
+                    }
+                    else
+                    {
                     var identity = new ClaimsIdentity(
-                        new GenericIdentity(baseUser.ds_nome),
+                        new GenericIdentity(baseUser.cd_codigo.ToString()),
                         new[]
                         {
-                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), //jti O Id do Token
+                            new Claim(JwtRegisteredClaimNames.Jti, baseUser.cd_codigo.ToString()), //jti O Id do Token
                             new Claim(JwtRegisteredClaimNames.UniqueName, user.Email),
                         }
                     );
                     DateTime createDate = DateTime.Now;
                     DateTime expirationDate = createDate + TimeSpan.FromSeconds(_tokenConfigurations.Seconds);
-
                     var handler = new JwtSecurityTokenHandler();
                     string token = CreateToken(identity, createDate, expirationDate, handler);
+                    var session = new SessionEntity(){
+                        cd_usuario = baseUser.cd_codigo,
+                        st_ativo = true,
+                        ds_ip = "10.0.0.13",
+                        ds_estacao_trabalho = "webUser",
+                        txt_hash = token,
+                        txt_data_login = DateTime.Now.ToString()
+                    };
+                    var rSession =  await InserteSession(session);
+                    user.sessionId = rSession.cd_codigo;
                     return SucessObject(createDate, expirationDate, token, user);
+                     }
                 }
             }
             else
@@ -116,7 +164,8 @@ namespace Api.Service.Services
                 acessToken = token,
                 userName = user.Email,
                 userPass = "HAHAHAHA",
-                message = "Usuário Logado com Sucesso"
+                message = "Usuário Logado com Sucesso",
+                sessionId = user.sessionId
             };
         }
     }
