@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.Application.Policy;
 using Api.CrossCutting.DependencyInjection;
 using Api.Domain.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -10,10 +11,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -27,9 +30,10 @@ namespace Aplication
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+           
         }
 
-         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         public IConfiguration Configuration { get; }
 
@@ -50,7 +54,14 @@ namespace Aplication
             });
         });
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            //coloquei para testar
+            services.AddHttpContextAccessor();
+            services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.TryAddScoped<IAuthorizationHandler, actionRequirement>();
+
+
+
            
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
@@ -84,15 +95,15 @@ namespace Aplication
             });
 
             
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("actionRequirement", policy =>
-                {
-                    policy.Requirements.Add(new Api.Application.Policy.actionRequirement());
-                    policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
-                    policy.RequireAuthenticatedUser();
-                });
-            });
+             services.AddAuthorization(options =>
+             {
+                 options.AddPolicy("actionRequirement", policy =>
+                 {
+                     policy.Requirements.Add(new Api.Application.Policy.ActionRequirement());
+                     policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+                     policy.RequireAuthenticatedUser();
+                 });
+             });
 
             services.AddControllers();
 

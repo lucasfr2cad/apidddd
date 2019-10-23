@@ -108,7 +108,7 @@ namespace Api.Service.Services
                         new GenericIdentity(baseUser.cd_codigo.ToString()),
                         new[]
                         {
-                            new Claim(JwtRegisteredClaimNames.Jti, baseUser.cd_codigo.ToString()), //jti O Id do Token
+                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), //jti O Id do Token
                             new Claim(JwtRegisteredClaimNames.UniqueName, user.Email),
                         }
                     );

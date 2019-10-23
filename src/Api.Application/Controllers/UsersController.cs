@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.Services.User;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Application.Controllers
@@ -12,12 +13,28 @@ namespace Api.Application.Controllers
     [Route("[controller]")]
     public class UsersController: ControllerBase
     {
+
+        private const int c_codigoForm = 5;
         private IUserService _service;
+
         public UsersController(IUserService service)
         {
             _service = service;
         }
-      //  [Authorize(Policy = "actionRequirement")]
+
+        public class authorize : AuthorizeAttribute
+        {
+            public int codigo_form;
+
+           
+            
+            public authorize (string P1, int pcod): base(P1)
+            {
+                codigo_form = pcod;
+               
+            }
+        }
+        [Authorize(Policy = "actionRequirement")]
         [Authorize("Bearer")]
         [HttpGet]
         public async Task<ActionResult> GetAll()
