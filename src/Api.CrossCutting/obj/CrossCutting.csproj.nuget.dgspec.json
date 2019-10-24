@@ -53,6 +53,10 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
+            "AspNetCore.HealthChecks.NpgSql": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
               "version": "[3.0.0, )"

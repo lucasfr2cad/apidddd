@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
+using System.Threading;
 using System.Threading.Tasks;
 using Api.Application.Policy;
 using Api.CrossCutting.DependencyInjection;
 using Api.Domain.Security;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +21,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Aplication
 {
@@ -54,15 +60,12 @@ namespace Aplication
             });
         });
 
-
-            //coloquei para testar
+            
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.TryAddScoped<IAuthorizationHandler, actionRequirement>();
 
 
-
-           
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
 
@@ -137,7 +140,9 @@ namespace Aplication
                     }
                 });
             });
-           
+
+            services.AddHealthChecksUI();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -165,6 +170,37 @@ namespace Aplication
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseHealthChecks("/status", new HealthCheckOptions()
+            {
+                // WriteResponse is a delegate used to write the response.
+                ResponseWriter = (httpContext, result) => {
+                    httpContext.Response.ContentType = "application/json";
+
+                    var json = new JObject(
+                    new JProperty("status", result.Status.ToString()),
+                    new JProperty("results", new JObject(result.Entries.Select(pair =>
+                    new JProperty(pair.Key, new JObject(
+                        new JProperty("status", pair.Value.Status.ToString()),
+                        new JProperty("description", pair.Value.Description),
+                        new JProperty("data", new JObject(pair.Value.Data.Select(
+                            p => new JProperty(p.Key, p.Value))))))))));
+            return httpContext.Response.WriteAsync(json.ToString(Formatting.Indented));
+        }
+    });
+
+    //Ativa o HealthChecks utilizado pelo HealthCheckUI
+    app.UseHealthChecks("/status-api", new HealthCheckOptions()
+    {
+        Predicate = _ => true,
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    });
+
+    app.UseHealthChecksUI(opt => {
+        opt.UIPath = "/status-dashboard";
+        opt.AddCustomStylesheet("dotnet.css");
+    });
+
 
             app.UseEndpoints(endpoints =>
             {
