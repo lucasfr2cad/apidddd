@@ -1,8 +1,10 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
+using Api.CrossCutting.Languages;
 using Api.Domain.Dtos;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.Services.User;
@@ -10,6 +12,7 @@ using Api.Domain.Repository;
 using Api.Domain.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Localization;
 
 namespace Api.Service.Services
 {
@@ -26,11 +29,15 @@ namespace Api.Service.Services
 
         private ISessionRepository _repository2;
 
+        private readonly IStringLocalizer _localizer;
+
+
         public LoginService(IUserRepository repository, 
         SigningConfigurations signingConfigurations,
         TokenConfigurations tokenConfigurations,
         IConfiguration configuration,
-        ISessionRepository repository2
+        ISessionRepository repository2,
+        IStringLocalizerFactory factory
         )
         {
             _repository = repository;
@@ -38,7 +45,15 @@ namespace Api.Service.Services
             _signingConfigurations = signingConfigurations;
             _tokenConfigurations = tokenConfigurations;
             _configuration = configuration;
+
+           var type = typeof(Resource);
+           var assemblyName = new AssemblyName(type.GetTypeInfo().Assembly.FullName);
+           _localizer = factory.Create("Resource", assemblyName.Name);
+           System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es-PY");
+           System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("es-PY");
         }
+
+        
 
       public async Task<UserEntity> Post(UserEntity user)
         {
@@ -73,7 +88,7 @@ namespace Api.Service.Services
                 baseUser = await _repository.FindByLogin(user.Email);
 
 
-                 var activeSessions = await CheckSession(baseUser);
+                 
 
 
                 if((baseUser == null)||(baseUser.ds_senha != user.Senha))
@@ -82,24 +97,22 @@ namespace Api.Service.Services
                     if(baseUser == null){
                     return new
                     {
-                        authenticated = false,
-                        message = "Email não cadastrado!"
+                        message = _localizer["userNotFound"].Value
                     };    
                     }
                     else
                     return new
                     {
-                        authenticated = false,
-                        message = "Senha incorreta!"
+                        message = _localizer["passNotFound"].Value
                     };
                 }
                 else
                 {
+                    var activeSessions = await CheckSession(baseUser);
                     if(baseUser.vl_max_sessoes - activeSessions <= 0){
                         return new
                     {
-                        authenticated = false,
-                        message = "Número máximo de sessões ativas!"
+                        message = _localizer["sessionLimit"].Value
                     };    
                     }
                     else
@@ -134,8 +147,7 @@ namespace Api.Service.Services
             {
                  return new
                     {
-                        authenticated = false,
-                        message = "Falha ao autenticar"
+                        message = _localizer["authenticateFailed"].Value
                     };
             }
         }
@@ -163,8 +175,7 @@ namespace Api.Service.Services
                 expiration = expirationDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 acessToken = token,
                 userName = user.Email,
-                userPass = "HAHAHAHA",
-                message = "Usuário Logado com Sucesso",
+                message = _localizer["authenticateSuccessful"].Value,
                 sessionId = user.sessionId
             };
         }

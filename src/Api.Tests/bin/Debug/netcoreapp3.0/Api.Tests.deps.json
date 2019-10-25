@@ -413,6 +413,15 @@
           "Microsoft.Extensions.Options": "3.0.0"
         }
       },
+      "Microsoft.Extensions.Localization/3.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.0.0",
+          "Microsoft.Extensions.Localization.Abstractions": "3.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "3.0.0",
+          "Microsoft.Extensions.Options": "3.0.0"
+        }
+      },
+      "Microsoft.Extensions.Localization.Abstractions/3.0.0": {},
       "Microsoft.Extensions.Logging/3.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Configuration.Binder": "3.0.0",
@@ -1976,10 +1985,22 @@
         "dependencies": {
           "Data": "1.0.0",
           "Domain": "1.0.0",
+          "Microsoft.Extensions.Localization": "3.0.0",
           "System.IdentityModel.Tokens.Jwt": "5.5.0"
         },
         "runtime": {
           "Service.dll": {}
+        },
+        "resources": {
+          "en/Service.resources.dll": {
+            "locale": "en"
+          },
+          "es/Service.resources.dll": {
+            "locale": "es"
+          },
+          "pt/Service.resources.dll": {
+            "locale": "pt"
+          }
         }
       }
     }
@@ -2339,6 +2360,20 @@
       "sha512": "sha512-CVBCL1uk0P2dBsRSWeaSaTOzC0CwRU20Z5YAiH0Xnr4jcYsWGdIKwotLBRAFaYkwWrb/OTApE6A8Y65/MGyVXg==",
       "path": "microsoft.extensions.http/3.0.0",
       "hashPath": "microsoft.extensions.http.3.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Localization/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0Rq65t5EkDPasSeBhCmSZLAHqvwG1MhXkTCaHV2/xGkOehhjDe1YXHOxCFssjFjZq2yzCtR4YRWSO3nNJadldA==",
+      "path": "microsoft.extensions.localization/3.0.0",
+      "hashPath": "microsoft.extensions.localization.3.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Localization.Abstractions/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NuWRefv8b5YX23jZ6/xt4qZoPXE+iTlHk7aOX/8PG+Q4h2ezVCEmYN1djse0G8QM7DQbeo6u59bsBVyJRERZ+A==",
+      "path": "microsoft.extensions.localization.abstractions/3.0.0",
+      "hashPath": "microsoft.extensions.localization.abstractions.3.0.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Logging/3.0.0": {
       "type": "package",

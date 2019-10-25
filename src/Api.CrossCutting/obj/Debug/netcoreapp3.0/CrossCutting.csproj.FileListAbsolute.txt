@@ -13,3 +13,6 @@ C:\Users\Fogaça\Documents\testeddd\src\Api.CrossCutting\obj\Debug\netcoreapp3.0
 C:\Users\Fogaça\Documents\testeddd\src\Api.CrossCutting\obj\Debug\netcoreapp3.0\CrossCutting.csproj.CopyComplete
 C:\Users\Fogaça\Documents\testeddd\src\Api.CrossCutting\obj\Debug\netcoreapp3.0\CrossCutting.dll
 C:\Users\Fogaça\Documents\testeddd\src\Api.CrossCutting\obj\Debug\netcoreapp3.0\CrossCutting.pdb
+C:\Users\Fogaça\Documents\testeddd\src\Api.CrossCutting\bin\Debug\netcoreapp3.0\en\Service.resources.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.CrossCutting\bin\Debug\netcoreapp3.0\es\Service.resources.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.CrossCutting\bin\Debug\netcoreapp3.0\pt\Service.resources.dll

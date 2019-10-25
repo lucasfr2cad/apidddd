@@ -72,3 +72,6 @@ C:\Users\Fogaça\Documents\testeddd\src\Api.Application\obj\Debug\netcoreapp3.0\
 C:\Users\Fogaça\Documents\testeddd\src\Api.Application\obj\Debug\netcoreapp3.0\Aplication.csproj.CopyComplete
 C:\Users\Fogaça\Documents\testeddd\src\Api.Application\obj\Debug\netcoreapp3.0\Aplication.dll
 C:\Users\Fogaça\Documents\testeddd\src\Api.Application\obj\Debug\netcoreapp3.0\Aplication.pdb
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\en\Service.resources.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\es\Service.resources.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Application\bin\Debug\netcoreapp3.0\pt\Service.resources.dll

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Mime;
 using System.Threading;
@@ -14,8 +15,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -59,6 +62,11 @@ namespace Aplication
                                 .AllowAnyMethod();
             });
         });
+
+            services.AddMvc().AddViewLocalization(
+            LanguageViewLocationExpanderFormat.Suffix,
+            opts => { opts.ResourcesPath = "Resources"; })
+            .AddDataAnnotationsLocalization();
 
             
             services.AddHttpContextAccessor();
@@ -152,6 +160,21 @@ namespace Aplication
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            var supportedCultures = new[]
+          {
+               new CultureInfo("es-PY"),
+               new CultureInfo("en-US"),
+               new CultureInfo("pt-BR"),
+           };
+           app.UseRequestLocalization(new RequestLocalizationOptions
+           {
+               DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US"),
+               // Formatting numbers, dates, etc.
+               SupportedCultures = supportedCultures,
+               // UI strings that we have localized.
+               SupportedUICultures = supportedCultures
+           });
 
             app.UseCors(MyAllowSpecificOrigins);
 

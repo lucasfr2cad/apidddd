@@ -157,6 +157,30 @@
           "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
         }
       },
+      "Microsoft.Extensions.Localization/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.0.0",
+          "Microsoft.Extensions.Localization.Abstractions": "3.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "3.0.0",
+          "Microsoft.Extensions.Options": "3.0.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.0/Microsoft.Extensions.Localization.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Microsoft.Extensions.Localization.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Localization.Abstractions/3.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/Microsoft.Extensions.Localization.Abstractions.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Microsoft.Extensions.Localization.Abstractions.dll": {}
+        }
+      },
       "Microsoft.Extensions.Logging/3.0.0": {
         "type": "package",
         "dependencies": {
@@ -1244,6 +1268,36 @@
         "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
         "microsoft.extensions.dependencyinjection.abstractions.3.0.0.nupkg.sha512",
         "microsoft.extensions.dependencyinjection.abstractions.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.Localization/3.0.0": {
+      "sha512": "0Rq65t5EkDPasSeBhCmSZLAHqvwG1MhXkTCaHV2/xGkOehhjDe1YXHOxCFssjFjZq2yzCtR4YRWSO3nNJadldA==",
+      "type": "package",
+      "path": "microsoft.extensions.localization/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netcoreapp3.0/Microsoft.Extensions.Localization.dll",
+        "lib/netcoreapp3.0/Microsoft.Extensions.Localization.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Localization.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Localization.xml",
+        "microsoft.extensions.localization.3.0.0.nupkg.sha512",
+        "microsoft.extensions.localization.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.Localization.Abstractions/3.0.0": {
+      "sha512": "NuWRefv8b5YX23jZ6/xt4qZoPXE+iTlHk7aOX/8PG+Q4h2ezVCEmYN1djse0G8QM7DQbeo6u59bsBVyJRERZ+A==",
+      "type": "package",
+      "path": "microsoft.extensions.localization.abstractions/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netcoreapp3.0/Microsoft.Extensions.Localization.Abstractions.dll",
+        "lib/netcoreapp3.0/Microsoft.Extensions.Localization.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Localization.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Localization.Abstractions.xml",
+        "microsoft.extensions.localization.abstractions.3.0.0.nupkg.sha512",
+        "microsoft.extensions.localization.abstractions.nuspec"
       ]
     },
     "Microsoft.Extensions.Logging/3.0.0": {
@@ -4139,6 +4193,7 @@
     ".NETCoreApp,Version=v3.0": [
       "Data >= 1.0.0",
       "Domain >= 1.0.0",
+      "Microsoft.Extensions.Localization >= 3.0.0",
       "System.IdentityModel.Tokens.Jwt >= 5.5.0"
     ]
   },
@@ -4149,11 +4204,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj",
+      "projectUniqueName": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj",
       "projectName": "Service",
-      "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj",
+      "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj",
       "packagesPath": "C:\\Users\\Fogaça\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\obj\\",
+      "outputPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -4174,11 +4229,11 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj": {
-              "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj"
+            "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj": {
+              "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj"
             },
-            "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj"
+            "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
+              "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj"
             }
           }
         }
@@ -4192,6 +4247,10 @@
     "frameworks": {
       "netcoreapp3.0": {
         "dependencies": {
+          "Microsoft.Extensions.Localization": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
           "System.IdentityModel.Tokens.Jwt": {
             "target": "Package",
             "version": "[5.5.0, )"
