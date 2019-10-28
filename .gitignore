@@ -13,4 +13,7 @@ Api.Domain/obj
 Api.CrossCutting/bin
 Api.CrossCutting/obj
 
+Api.Service/bin
+Api.Service/obj
+
 
