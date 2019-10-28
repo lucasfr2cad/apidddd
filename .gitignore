@@ -16,4 +16,6 @@ Api.CrossCutting/obj
 Api.Service/bin
 Api.Service/obj
 
+.vscode
+
 
