@@ -1,0 +1,13 @@
+c:\Users\Fogaça\Documents\testeddd\src\Api.Data\bin\Debug\netcoreapp3.0\Data.deps.json
+c:\Users\Fogaça\Documents\testeddd\src\Api.Data\bin\Debug\netcoreapp3.0\Data.runtimeconfig.json
+c:\Users\Fogaça\Documents\testeddd\src\Api.Data\bin\Debug\netcoreapp3.0\Data.runtimeconfig.dev.json
+c:\Users\Fogaça\Documents\testeddd\src\Api.Data\bin\Debug\netcoreapp3.0\Data.dll
+c:\Users\Fogaça\Documents\testeddd\src\Api.Data\bin\Debug\netcoreapp3.0\Data.pdb
+c:\Users\Fogaça\Documents\testeddd\src\Api.Data\bin\Debug\netcoreapp3.0\Domain.dll
+c:\Users\Fogaça\Documents\testeddd\src\Api.Data\bin\Debug\netcoreapp3.0\Domain.pdb
+c:\Users\Fogaça\Documents\testeddd\src\Api.Data\obj\Debug\netcoreapp3.0\Data.csprojAssemblyReference.cache
+c:\Users\Fogaça\Documents\testeddd\src\Api.Data\obj\Debug\netcoreapp3.0\Data.AssemblyInfoInputs.cache
+c:\Users\Fogaça\Documents\testeddd\src\Api.Data\obj\Debug\netcoreapp3.0\Data.AssemblyInfo.cs
+c:\Users\Fogaça\Documents\testeddd\src\Api.Data\obj\Debug\netcoreapp3.0\Data.csproj.CopyComplete
+c:\Users\Fogaça\Documents\testeddd\src\Api.Data\obj\Debug\netcoreapp3.0\Data.dll
+c:\Users\Fogaça\Documents\testeddd\src\Api.Data\obj\Debug\netcoreapp3.0\Data.pdb
