@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {}
+    "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {}
   },
   "projects": {
-    "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
+    "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj",
+        "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\Fogaça\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\obj\\",
+        "outputPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

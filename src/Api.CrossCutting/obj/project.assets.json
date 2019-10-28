@@ -2,19 +2,6 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.0": {
-      "AspNetCore.HealthChecks.NpgSql/3.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Diagnostics.HealthChecks": "3.0.0",
-          "Npgsql": "4.0.10"
-        },
-        "compile": {
-          "lib/netstandard2.0/HealthChecks.NpgSql.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/HealthChecks.NpgSql.dll": {}
-        }
-      },
       "Microsoft.CSharp/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -168,56 +155,6 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
-        }
-      },
-      "Microsoft.Extensions.Diagnostics.HealthChecks/3.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions": "3.0.0",
-          "Microsoft.Extensions.Hosting.Abstractions": "3.0.0",
-          "Microsoft.Extensions.Options": "3.0.0"
-        },
-        "compile": {
-          "lib/netcoreapp3.0/Microsoft.Extensions.Diagnostics.HealthChecks.dll": {}
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/Microsoft.Extensions.Diagnostics.HealthChecks.dll": {}
-        }
-      },
-      "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions/3.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/netcoreapp3.0/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll": {}
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll": {}
-        }
-      },
-      "Microsoft.Extensions.FileProviders.Abstractions/3.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Primitives": "3.0.0"
-        },
-        "compile": {
-          "lib/netcoreapp3.0/Microsoft.Extensions.FileProviders.Abstractions.dll": {}
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/Microsoft.Extensions.FileProviders.Abstractions.dll": {}
-        }
-      },
-      "Microsoft.Extensions.Hosting.Abstractions/3.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Configuration.Abstractions": "3.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.0.0",
-          "Microsoft.Extensions.FileProviders.Abstractions": "3.0.0",
-          "Microsoft.Extensions.Logging.Abstractions": "3.0.0"
-        },
-        "compile": {
-          "lib/netcoreapp3.0/Microsoft.Extensions.Hosting.Abstractions.dll": {}
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/Microsoft.Extensions.Hosting.Abstractions.dll": {}
         }
       },
       "Microsoft.Extensions.Localization/3.0.0": {
@@ -1135,18 +1072,6 @@
     }
   },
   "libraries": {
-    "AspNetCore.HealthChecks.NpgSql/3.0.0": {
-      "sha512": "4mvoqGP3q9mUdfEj4kDMHETnazQON+2t9LXxEPGOlz4TtVCcqH7C1w3ZX4DAyyBd7oMWffrR1lQOSV5xtDsjZw==",
-      "type": "package",
-      "path": "aspnetcore.healthchecks.npgsql/3.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "aspnetcore.healthchecks.npgsql.3.0.0.nupkg.sha512",
-        "aspnetcore.healthchecks.npgsql.nuspec",
-        "lib/netstandard2.0/HealthChecks.NpgSql.dll"
-      ]
-    },
     "Microsoft.CSharp/4.3.0": {
       "sha512": "P+MBhIM0YX+JqROuf7i306ZLJEjQYA9uUyRDE+OqwUI5sh41e2ZbPQV3LfAPh+29cmceE1pUffXsGfR4eMY3KA==",
       "type": "package",
@@ -1359,66 +1284,6 @@
         "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
         "microsoft.extensions.dependencyinjection.abstractions.3.0.0.nupkg.sha512",
         "microsoft.extensions.dependencyinjection.abstractions.nuspec"
-      ]
-    },
-    "Microsoft.Extensions.Diagnostics.HealthChecks/3.0.0": {
-      "sha512": "LIuwGjTf6DGorUTo9kqCs5YeFu+cG6Wk+nP2OiD3YRTAmGMWMgy57l7H58pTACIMvBiWuXYHunzcB5gmkaqApA==",
-      "type": "package",
-      "path": "microsoft.extensions.diagnostics.healthchecks/3.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netcoreapp3.0/Microsoft.Extensions.Diagnostics.HealthChecks.dll",
-        "lib/netcoreapp3.0/Microsoft.Extensions.Diagnostics.HealthChecks.xml",
-        "lib/netstandard2.0/Microsoft.Extensions.Diagnostics.HealthChecks.dll",
-        "lib/netstandard2.0/Microsoft.Extensions.Diagnostics.HealthChecks.xml",
-        "microsoft.extensions.diagnostics.healthchecks.3.0.0.nupkg.sha512",
-        "microsoft.extensions.diagnostics.healthchecks.nuspec"
-      ]
-    },
-    "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions/3.0.0": {
-      "sha512": "1Yrz6fJNtnVHVQPnkUeLUUlhmdkoeGcYqQ1XR7g09bphTT7ukgXHaWyijgsgAQJJeCVg83PEq3CJu3z0hpygUw==",
-      "type": "package",
-      "path": "microsoft.extensions.diagnostics.healthchecks.abstractions/3.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netcoreapp3.0/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll",
-        "lib/netcoreapp3.0/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.xml",
-        "lib/netstandard2.0/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll",
-        "lib/netstandard2.0/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.xml",
-        "microsoft.extensions.diagnostics.healthchecks.abstractions.3.0.0.nupkg.sha512",
-        "microsoft.extensions.diagnostics.healthchecks.abstractions.nuspec"
-      ]
-    },
-    "Microsoft.Extensions.FileProviders.Abstractions/3.0.0": {
-      "sha512": "kahEeykb6FyQytoZNNXuz74X85B4weIEt8Kd+0klK48bkXDWOIHAOvNjlGsPMcS9CL935Te8QGQS83JqCbpdHA==",
-      "type": "package",
-      "path": "microsoft.extensions.fileproviders.abstractions/3.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netcoreapp3.0/Microsoft.Extensions.FileProviders.Abstractions.dll",
-        "lib/netcoreapp3.0/Microsoft.Extensions.FileProviders.Abstractions.xml",
-        "lib/netstandard2.0/Microsoft.Extensions.FileProviders.Abstractions.dll",
-        "lib/netstandard2.0/Microsoft.Extensions.FileProviders.Abstractions.xml",
-        "microsoft.extensions.fileproviders.abstractions.3.0.0.nupkg.sha512",
-        "microsoft.extensions.fileproviders.abstractions.nuspec"
-      ]
-    },
-    "Microsoft.Extensions.Hosting.Abstractions/3.0.0": {
-      "sha512": "qeDWS5ErmkUN96BdQqpmeCmLk5HJWQ/SPw3ux5v5/Qb0hKZS5wojBMulnBC7JUEiBwg7Ir71Yjf1lFiRT5MdtQ==",
-      "type": "package",
-      "path": "microsoft.extensions.hosting.abstractions/3.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netcoreapp3.0/Microsoft.Extensions.Hosting.Abstractions.dll",
-        "lib/netcoreapp3.0/Microsoft.Extensions.Hosting.Abstractions.xml",
-        "lib/netstandard2.0/Microsoft.Extensions.Hosting.Abstractions.dll",
-        "lib/netstandard2.0/Microsoft.Extensions.Hosting.Abstractions.xml",
-        "microsoft.extensions.hosting.abstractions.3.0.0.nupkg.sha512",
-        "microsoft.extensions.hosting.abstractions.nuspec"
       ]
     },
     "Microsoft.Extensions.Localization/3.0.0": {
@@ -4347,7 +4212,6 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
-      "AspNetCore.HealthChecks.NpgSql >= 3.0.0",
       "Data >= 1.0.0",
       "Domain >= 1.0.0",
       "Microsoft.Extensions.DependencyInjection >= 3.0.0",
@@ -4361,11 +4225,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj",
+      "projectUniqueName": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj",
       "projectName": "CrossCutting",
-      "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj",
+      "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj",
       "packagesPath": "C:\\Users\\Fogaça\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\obj\\",
+      "outputPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -4386,14 +4250,14 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj": {
-              "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj"
+            "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj": {
+              "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj"
             },
-            "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
-              "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj"
+            "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj"
             },
-            "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj": {
-              "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj"
+            "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj": {
+              "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj"
             }
           }
         }
@@ -4407,10 +4271,6 @@
     "frameworks": {
       "netcoreapp3.0": {
         "dependencies": {
-          "AspNetCore.HealthChecks.NpgSql": {
-            "target": "Package",
-            "version": "[3.0.0, )"
-          },
           "Microsoft.Extensions.DependencyInjection": {
             "target": "Package",
             "version": "[3.0.0, )"

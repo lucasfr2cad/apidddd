@@ -8,7 +8,6 @@
     ".NETCoreApp,Version=v3.0": {
       "CrossCutting/1.0.0": {
         "dependencies": {
-          "AspNetCore.HealthChecks.NpgSql": "3.0.0",
           "Data": "1.0.0",
           "Domain": "1.0.0",
           "Microsoft.Extensions.DependencyInjection": "3.0.0",
@@ -16,18 +15,6 @@
         },
         "runtime": {
           "CrossCutting.dll": {}
-        }
-      },
-      "AspNetCore.HealthChecks.NpgSql/3.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.Diagnostics.HealthChecks": "3.0.0",
-          "Npgsql": "4.1.1"
-        },
-        "runtime": {
-          "lib/netstandard2.0/HealthChecks.NpgSql.dll": {
-            "assemblyVersion": "3.0.0.0",
-            "fileVersion": "3.0.0.0"
-          }
         }
       },
       "Microsoft.CSharp/4.3.0": {
@@ -161,52 +148,6 @@
       "Microsoft.Extensions.DependencyInjection.Abstractions/3.0.0": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
-            "assemblyVersion": "3.0.0.0",
-            "fileVersion": "3.0.19.46305"
-          }
-        }
-      },
-      "Microsoft.Extensions.Diagnostics.HealthChecks/3.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions": "3.0.0",
-          "Microsoft.Extensions.Hosting.Abstractions": "3.0.0",
-          "Microsoft.Extensions.Options": "3.0.0"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/Microsoft.Extensions.Diagnostics.HealthChecks.dll": {
-            "assemblyVersion": "3.0.0.0",
-            "fileVersion": "3.0.19.46305"
-          }
-        }
-      },
-      "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions/3.0.0": {
-        "runtime": {
-          "lib/netcoreapp3.0/Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll": {
-            "assemblyVersion": "3.0.0.0",
-            "fileVersion": "3.0.19.46305"
-          }
-        }
-      },
-      "Microsoft.Extensions.FileProviders.Abstractions/3.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.Primitives": "3.0.0"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/Microsoft.Extensions.FileProviders.Abstractions.dll": {
-            "assemblyVersion": "3.0.0.0",
-            "fileVersion": "3.0.19.46305"
-          }
-        }
-      },
-      "Microsoft.Extensions.Hosting.Abstractions/3.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.Configuration.Abstractions": "3.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.0.0",
-          "Microsoft.Extensions.FileProviders.Abstractions": "3.0.0",
-          "Microsoft.Extensions.Logging.Abstractions": "3.0.0"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/Microsoft.Extensions.Hosting.Abstractions.dll": {
             "assemblyVersion": "3.0.0.0",
             "fileVersion": "3.0.19.46305"
           }
@@ -809,13 +750,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AspNetCore.HealthChecks.NpgSql/3.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-4mvoqGP3q9mUdfEj4kDMHETnazQON+2t9LXxEPGOlz4TtVCcqH7C1w3ZX4DAyyBd7oMWffrR1lQOSV5xtDsjZw==",
-      "path": "aspnetcore.healthchecks.npgsql/3.0.0",
-      "hashPath": "aspnetcore.healthchecks.npgsql.3.0.0.nupkg.sha512"
-    },
     "Microsoft.CSharp/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -899,34 +833,6 @@
       "sha512": "sha512-ofQRroDlzJ0xKOtzNuaVt6QKNImFkhkG0lIMpGl7PtXnIf5SuLWBeiQZAP8DNSxDBJJdcsPkiJiMYK2WA5H8dQ==",
       "path": "microsoft.extensions.dependencyinjection.abstractions/3.0.0",
       "hashPath": "microsoft.extensions.dependencyinjection.abstractions.3.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Diagnostics.HealthChecks/3.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-LIuwGjTf6DGorUTo9kqCs5YeFu+cG6Wk+nP2OiD3YRTAmGMWMgy57l7H58pTACIMvBiWuXYHunzcB5gmkaqApA==",
-      "path": "microsoft.extensions.diagnostics.healthchecks/3.0.0",
-      "hashPath": "microsoft.extensions.diagnostics.healthchecks.3.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions/3.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-1Yrz6fJNtnVHVQPnkUeLUUlhmdkoeGcYqQ1XR7g09bphTT7ukgXHaWyijgsgAQJJeCVg83PEq3CJu3z0hpygUw==",
-      "path": "microsoft.extensions.diagnostics.healthchecks.abstractions/3.0.0",
-      "hashPath": "microsoft.extensions.diagnostics.healthchecks.abstractions.3.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.FileProviders.Abstractions/3.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-kahEeykb6FyQytoZNNXuz74X85B4weIEt8Kd+0klK48bkXDWOIHAOvNjlGsPMcS9CL935Te8QGQS83JqCbpdHA==",
-      "path": "microsoft.extensions.fileproviders.abstractions/3.0.0",
-      "hashPath": "microsoft.extensions.fileproviders.abstractions.3.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Hosting.Abstractions/3.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-qeDWS5ErmkUN96BdQqpmeCmLk5HJWQ/SPw3ux5v5/Qb0hKZS5wojBMulnBC7JUEiBwg7Ir71Yjf1lFiRT5MdtQ==",
-      "path": "microsoft.extensions.hosting.abstractions/3.0.0",
-      "hashPath": "microsoft.extensions.hosting.abstractions.3.0.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Localization/3.0.0": {
       "type": "package",

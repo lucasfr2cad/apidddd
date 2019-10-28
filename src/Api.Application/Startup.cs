@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Api.Application.Policy;
 using Api.CrossCutting.DependencyInjection;
 using Api.Domain.Security;
-using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -149,7 +148,6 @@ namespace Aplication
                 });
             });
 
-            services.AddHealthChecksUI();
 
         }
 
@@ -194,37 +192,7 @@ namespace Aplication
 
             app.UseAuthorization();
 
-            app.UseHealthChecks("/status", new HealthCheckOptions()
-            {
-                // WriteResponse is a delegate used to write the response.
-                ResponseWriter = (httpContext, result) => {
-                    httpContext.Response.ContentType = "application/json";
-
-                    var json = new JObject(
-                    new JProperty("status", result.Status.ToString()),
-                    new JProperty("results", new JObject(result.Entries.Select(pair =>
-                    new JProperty(pair.Key, new JObject(
-                        new JProperty("status", pair.Value.Status.ToString()),
-                        new JProperty("description", pair.Value.Description),
-                        new JProperty("data", new JObject(pair.Value.Data.Select(
-                            p => new JProperty(p.Key, p.Value))))))))));
-            return httpContext.Response.WriteAsync(json.ToString(Formatting.Indented));
-        }
-    });
-
-    //Ativa o HealthChecks utilizado pelo HealthCheckUI
-    app.UseHealthChecks("/status-api", new HealthCheckOptions()
-    {
-        Predicate = _ => true,
-        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-    });
-
-    app.UseHealthChecksUI(opt => {
-        opt.UIPath = "/status-dashboard";
-        opt.AddCustomStylesheet("dotnet.css");
-    });
-
-
+          
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
