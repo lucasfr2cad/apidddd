@@ -1,0 +1,7 @@
+C:\Users\Fogaça\Documents\testeddd\src\Api.Domain\bin\Debug\netcoreapp3.0\Domain.deps.json
+C:\Users\Fogaça\Documents\testeddd\src\Api.Domain\bin\Debug\netcoreapp3.0\Domain.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Domain\bin\Debug\netcoreapp3.0\Domain.pdb
+C:\Users\Fogaça\Documents\testeddd\src\Api.Domain\obj\Debug\netcoreapp3.0\Domain.AssemblyInfoInputs.cache
+C:\Users\Fogaça\Documents\testeddd\src\Api.Domain\obj\Debug\netcoreapp3.0\Domain.AssemblyInfo.cs
+C:\Users\Fogaça\Documents\testeddd\src\Api.Domain\obj\Debug\netcoreapp3.0\Domain.dll
+C:\Users\Fogaça\Documents\testeddd\src\Api.Domain\obj\Debug\netcoreapp3.0\Domain.pdb
