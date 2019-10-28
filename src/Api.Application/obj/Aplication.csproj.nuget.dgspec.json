@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Application\\Aplication.csproj": {}
+    "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Application\\Aplication.csproj": {}
   },
   "projects": {
-    "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Application\\Aplication.csproj": {
+    "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Application\\Aplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Application\\Aplication.csproj",
+        "projectUniqueName": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Application\\Aplication.csproj",
         "projectName": "Aplication",
-        "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Application\\Aplication.csproj",
+        "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Application\\Aplication.csproj",
         "packagesPath": "C:\\Users\\Fogaça\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Application\\obj\\",
+        "outputPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -32,14 +32,14 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj": {
-                "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj"
+              "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj": {
+                "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj"
               },
-              "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
-                "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj"
+              "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj"
               },
-              "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj": {
-                "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj"
+              "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj": {
+                "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj"
               }
             }
           }
@@ -84,14 +84,14 @@
         }
       }
     },
-    "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj": {
+    "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj",
+        "projectUniqueName": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj",
         "projectName": "CrossCutting",
-        "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj",
+        "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj",
         "packagesPath": "C:\\Users\\Fogaça\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\obj\\",
+        "outputPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -112,14 +112,14 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj": {
-                "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj"
+              "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj": {
+                "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj"
               },
-              "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
-                "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj"
+              "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj"
               },
-              "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj": {
-                "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj"
+              "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj": {
+                "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj"
               }
             }
           }
@@ -157,14 +157,14 @@
         }
       }
     },
-    "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj": {
+    "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj",
+        "projectUniqueName": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj",
         "projectName": "Data",
-        "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj",
+        "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj",
         "packagesPath": "C:\\Users\\Fogaça\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\obj\\",
+        "outputPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -185,8 +185,8 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
-                "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj"
+              "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj"
               }
             }
           }
@@ -236,14 +236,14 @@
         }
       }
     },
-    "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
+    "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj",
+        "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\Fogaça\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\obj\\",
+        "outputPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -299,14 +299,14 @@
         }
       }
     },
-    "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj": {
+    "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj",
+        "projectUniqueName": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj",
         "projectName": "Service",
-        "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj",
+        "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj",
         "packagesPath": "C:\\Users\\Fogaça\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\obj\\",
+        "outputPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -327,11 +327,11 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj": {
-                "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj"
+              "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj": {
+                "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj"
               },
-              "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
-                "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj"
+              "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj"
               }
             }
           }

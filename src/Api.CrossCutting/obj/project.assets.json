@@ -4225,11 +4225,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj",
+      "projectUniqueName": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj",
       "projectName": "CrossCutting",
-      "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj",
+      "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\CrossCutting.csproj",
       "packagesPath": "C:\\Users\\Fogaça\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\obj\\",
+      "outputPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.CrossCutting\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -4250,14 +4250,14 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj": {
-              "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj"
+            "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj": {
+              "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Data\\Data.csproj"
             },
-            "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
-              "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj"
+            "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Domain\\Domain.csproj"
             },
-            "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj": {
-              "projectPath": "c:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj"
+            "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj": {
+              "projectPath": "C:\\Users\\Fogaça\\Documents\\testeddd\\src\\Api.Service\\Service.csproj"
             }
           }
         }
