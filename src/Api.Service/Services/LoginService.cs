@@ -29,6 +29,8 @@ namespace Api.Service.Services
 
         private ISessionRepository _repository2;
 
+        private IConfigRepository _repository3;
+
         private readonly IStringLocalizer _localizer;
 
 
@@ -37,7 +39,8 @@ namespace Api.Service.Services
         TokenConfigurations tokenConfigurations,
         IConfiguration configuration,
         ISessionRepository repository2,
-        IStringLocalizerFactory factory
+        IStringLocalizerFactory factory,
+        IConfigRepository repository3
         )
         {
             _repository = repository;
@@ -45,6 +48,7 @@ namespace Api.Service.Services
             _signingConfigurations = signingConfigurations;
             _tokenConfigurations = tokenConfigurations;
             _configuration = configuration;
+            _repository3 = repository3;
 
            var type = typeof(Resource);
            var assemblyName = new AssemblyName(type.GetTypeInfo().Assembly.FullName);
@@ -55,7 +59,7 @@ namespace Api.Service.Services
 
         
 
-      public async Task<UserEntity> Post(UserEntity user)
+        public async Task<UserEntity> Post(UserEntity user)
         {
             return await _repository.InsertAsync(user);
         }
@@ -77,6 +81,11 @@ namespace Api.Service.Services
             return await _repository2.InsertAsync(session);
         } 
 
+        public async Task<ConfigEntity> FindLanguage(UserEntity user)
+        {
+            return await _repository3.FindLanguage((int)user.cd_cliente);
+        }
+       
         public async Task<object> FindByLogin(LoginDto user)
         {
 

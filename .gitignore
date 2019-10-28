@@ -1,0 +1,16 @@
+### DotnetCore ###
+# .NET Core build folders
+
+/Api.Application/bin
+/Api.Application/obj
+
+/Api.Data/bin
+/Api.Data/obj
+
+/Api.Domain/bin
+/Api.Domain/obj
+
+/Api.CrossCutting/bin
+/Api.CrossCutting/obj
+
+

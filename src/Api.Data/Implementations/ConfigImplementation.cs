@@ -16,9 +16,9 @@ namespace Api.Data.Implementations
             _dataset = context.Set<ConfigEntity> ();
         }
 
-        public async Task<ConfigEntity> FindLanguage(int cd_empresa)
+        public async Task<ConfigEntity> FindLanguage(int cd_cliente)
         {
-            return await _dataset.FirstOrDefaultAsync(c => c.cd_empresa.Equals(cd_empresa));
+            return await _dataset.FirstOrDefaultAsync(c => c.cd_empresa.Equals(cd_cliente) && c.campo.Equals("idioma"));
         }
     }
 }
