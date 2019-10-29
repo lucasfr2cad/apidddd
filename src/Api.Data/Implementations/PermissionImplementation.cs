@@ -9,14 +9,10 @@ namespace Api.Data.Implementations
 {
     public class PermissionImplementation : BaseRepository<PermissionEntity>, IPermissionRepository
     {
-
-        private DbSet<PermissionEntity> _dataset;
-
         public PermissionImplementation(MyContext context) : base(context)
         {
-            _dataset = context.Set<PermissionEntity> ();
-        }
 
+        }
 
         public async Task<PermissionEntity> FindPermission(int form, int idUser, int cd_condicao)
         {

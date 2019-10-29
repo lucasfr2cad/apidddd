@@ -12,7 +12,7 @@ namespace Api.Data.Repository
 
         protected readonly MyContext _context;
 
-        private DbSet<T> _dataset;
+        protected DbSet<T> _dataset;                                                                                                              
 
         public BaseRepository(MyContext context)
         {
