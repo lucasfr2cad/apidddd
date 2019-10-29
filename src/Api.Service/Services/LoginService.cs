@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
-using Api.CrossCutting.Languages;
 using Api.Domain.Dtos;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.Services.User;
@@ -13,27 +12,18 @@ using Api.Domain.Security;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Localization;
-
 namespace Api.Service.Services
 {
-    public class LoginService:ILoginService
+    public class LoginService: BaseService, ILoginService
     {
         private IUserRepository _repository;
-
         private SigningConfigurations _signingConfigurations;
-
         private TokenConfigurations _tokenConfigurations;
-
         private IConfiguration _configuration {get;}
-
-
         private ISessionRepository _repository2;
-
         private IConfigRepository _repository3;
-
-        private readonly IStringLocalizer _localizer;
-
-
+ 
+  
         public LoginService(IUserRepository repository, 
         SigningConfigurations signingConfigurations,
         TokenConfigurations tokenConfigurations,
@@ -41,7 +31,7 @@ namespace Api.Service.Services
         ISessionRepository repository2,
         IStringLocalizerFactory factory,
         IConfigRepository repository3
-        )
+        ): base(factory, repository3)
         {
             _repository = repository;
             _repository2 = repository2;
@@ -49,38 +39,27 @@ namespace Api.Service.Services
             _tokenConfigurations = tokenConfigurations;
             _configuration = configuration;
             _repository3 = repository3;
-
-           var type = typeof(Resource);
-           var assemblyName = new AssemblyName(type.GetTypeInfo().Assembly.FullName);
-           _localizer = factory.Create("Resource", assemblyName.Name);
-           System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es-PY");
-           System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("es-PY");
+  
         }
-
         
-
         public async Task<UserEntity> Post(UserEntity user)
         {
             return await _repository.InsertAsync(user);
         }
-
         public async Task<int> CheckSession(UserEntity user )
         {   
          return await _repository2.CheckSession(user.cd_codigo);
         }
-
         public async Task<SessionEntity> UnchekSession(int id)
         {
             var result = await _repository2.SelectAsync(id);
             result.st_ativo = false;
             return await _repository2.UpdateAsync(result);
         }
-
         public async Task<SessionEntity> InserteSession(SessionEntity session)
         {
             return await _repository2.InsertAsync(session);
         } 
-
         public async Task<ConfigEntity> FindLanguage(UserEntity user)
         {
             return await _repository3.FindLanguage((int)user.cd_cliente);
@@ -88,18 +67,10 @@ namespace Api.Service.Services
        
         public async Task<object> FindByLogin(LoginDto user)
         {
-
             var baseUser = new UserEntity();
-
-
             if(user != null && !string.IsNullOrWhiteSpace(user.Email))
             {
                 baseUser = await _repository.FindByLogin(user.Email);
-
-
-                 
-
-
                 if((baseUser == null)||(baseUser.ds_senha != user.Senha))
                 {
                     
@@ -117,6 +88,10 @@ namespace Api.Service.Services
                 }
                 else
                 {
+                    var language = await GetLanguage((int)baseUser.cd_cliente);
+                    System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(language);
+                    System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(language);
+              
                     var activeSessions = await CheckSession(baseUser);
                     if(baseUser.vl_max_sessoes - activeSessions <= 0){
                         return new
@@ -126,7 +101,8 @@ namespace Api.Service.Services
                     }
                     else
                     {
-                    var identity = new ClaimsIdentity(
+                        
+                        var identity = new ClaimsIdentity(
                         new GenericIdentity(baseUser.cd_codigo.ToString()),
                         new[]
                         {
@@ -148,6 +124,7 @@ namespace Api.Service.Services
                     };
                     var rSession =  await InserteSession(session);
                     user.sessionId = rSession.cd_codigo;
+                    
                     return SucessObject(createDate, expirationDate, token, user);
                      }
                 }
@@ -160,21 +137,19 @@ namespace Api.Service.Services
                     };
             }
         }
-
         private string CreateToken(ClaimsIdentity identity, DateTime createDate, DateTime expirationDate, JwtSecurityTokenHandler handler)
         {
-         var securityToken = handler.CreateToken(new SecurityTokenDescriptor{
-            Issuer = _tokenConfigurations.Issuer,
-            Audience = _tokenConfigurations.Audience,
-            SigningCredentials = _signingConfigurations.SigningCredentials,
-            Subject = identity,
-            NotBefore = createDate,
-            Expires = expirationDate,
-         });
-         var token = handler.WriteToken(securityToken);
-         return token;
+             var securityToken = handler.CreateToken(new SecurityTokenDescriptor{
+                Issuer = _tokenConfigurations.Issuer,
+                Audience = _tokenConfigurations.Audience,
+                SigningCredentials = _signingConfigurations.SigningCredentials,
+                Subject = identity,
+                NotBefore = createDate,
+                Expires = expirationDate,
+             });
+             var token = handler.WriteToken(securityToken);
+             return token;
         }
-
         private object SucessObject(DateTime createDate, DateTime expirationDate, string token, LoginDto user)
         {
             return new
@@ -190,3 +165,6 @@ namespace Api.Service.Services
         }
     }
 }
+
+
+

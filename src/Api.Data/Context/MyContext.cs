@@ -12,6 +12,8 @@ namespace Api.Data.Context
 
         public DbSet<PermissionEntity> permissions {get; set;}
 
+        public DbSet<ConfigEntity> config { get; set; }
+
         public MyContext(DbContextOptions<MyContext> options) :base (options) {}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder){
@@ -19,6 +21,8 @@ namespace Api.Data.Context
             modelBuilder.Entity<UserEntity>(new UserMap().Configure);
             modelBuilder.Entity<SessionEntity>(new SessionsMap().Configure);
             modelBuilder.Entity<PermissionEntity>(new PermissionMap().Configure);
+            modelBuilder.Entity<ConfigEntity>(new ConfigMap().Configure);
+
         }
     }
 }
