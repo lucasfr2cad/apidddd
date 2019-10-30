@@ -38,7 +38,7 @@ namespace Aplication
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-           
+
         }
 
         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -67,10 +67,10 @@ namespace Aplication
             opts => { opts.ResourcesPath = "Resources"; })
             .AddDataAnnotationsLocalization();
 
-            
+
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
-            services.TryAddScoped<IAuthorizationHandler, actionRequirement>();
+            services.AddScoped<IAuthorizationHandler, actionRequirement>();
 
 
             ConfigureService.ConfigureDependenciesService(services);
@@ -83,12 +83,14 @@ namespace Aplication
             new ConfigureFromConfigurationOptions<TokenConfigurations>(
                 Configuration.GetSection("TokenConfiguration"))
                 .Configure(tokenConfigurations);
-                services.AddSingleton(tokenConfigurations);
+            services.AddSingleton(tokenConfigurations);
 
-            services.AddAuthentication(authOptions =>{
+            services.AddAuthentication(authOptions =>
+            {
                 authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 authOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(bearerOptions => {
+            }).AddJwtBearer(bearerOptions =>
+            {
                 var paramsValidation = bearerOptions.TokenValidationParameters;
                 paramsValidation.IssuerSigningKey = signingConfigurations.Key;
                 paramsValidation.ValidAudience = tokenConfigurations.Audience;
@@ -98,45 +100,49 @@ namespace Aplication
                 paramsValidation.ClockSkew = TimeSpan.Zero;
             });
 
-            services.AddAuthorization(auth =>{
+            services.AddAuthorization(auth =>
+            {
                 auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
                 .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                 .RequireAuthenticatedUser().Build());
             });
 
-            
-             services.AddAuthorization(options =>
-             {
-                 options.AddPolicy("actionRequirement", policy =>
-                 {
-                     policy.Requirements.Add(new Api.Application.Policy.ActionRequirement());
-                     policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
-                     policy.RequireAuthenticatedUser();
-                 });
-             });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("actionRequirement", policy =>
+                {
+                    policy.Requirements.Add(new Api.Application.Policy.ActionRequirement());
+                    policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+                    policy.RequireAuthenticatedUser();
+                });
+            });
 
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v2", new OpenApiInfo 
+                c.SwaggerDoc("v2", new OpenApiInfo
                 {
-                     Title = "API Glass CAD", 
-                     Version = "v1",
-                     Description = "API para Teste",
-                     Contact = new OpenApiContact {
-                         Name = "R2 Glass",
-                         Email = "lucasf@glasscad.com.br",
-                         Url = new Uri("https://github.com/lucasfr2cad/apidddd"),
-                     }  });
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme{
+                    Title = "API Glass CAD",
+                    Version = "v1",
+                    Description = "API para Teste",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "R2 Glass",
+                        Email = "lucasf@glasscad.com.br",
+                        Url = new Uri("https://github.com/lucasfr2cad/apidddd"),
+                    }
+                });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
                     In = ParameterLocation.Header,
                     Description = "Entre com o Token JWT",
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey
                 });
 
-                c.AddSecurityRequirement (new OpenApiSecurityRequirement{
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement{
                     {
                         new OpenApiSecurityScheme {
                             Reference = new OpenApiReference{
@@ -165,14 +171,14 @@ namespace Aplication
                new CultureInfo("en-US"),
                new CultureInfo("pt-BR"),
            };
-           app.UseRequestLocalization(new RequestLocalizationOptions
-           {
-               DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US"),
-               // Formatting numbers, dates, etc.
-               SupportedCultures = supportedCultures,
-               // UI strings that we have localized.
-               SupportedUICultures = supportedCultures
-           });
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US"),
+                // Formatting numbers, dates, etc.
+                SupportedCultures = supportedCultures,
+                // UI strings that we have localized.
+                SupportedUICultures = supportedCultures
+            });
 
             app.UseCors(MyAllowSpecificOrigins);
 
@@ -180,11 +186,11 @@ namespace Aplication
 
             app.UseSwaggerUI(c =>
             {
-            c.RoutePrefix = string.Empty;
-            c.SwaggerEndpoint("/swagger/v2/swagger.json", "API Glass CAD");
+                c.RoutePrefix = string.Empty;
+                c.SwaggerEndpoint("/swagger/v2/swagger.json", "API Glass CAD");
             });
 
-            var option = new RewriteOptions ();
+            var option = new RewriteOptions();
             option.AddRedirect("^$", "swagger");
             app.UseRewriter(option);
 
@@ -195,23 +201,24 @@ namespace Aplication
 
             app.UseHealthChecks("/health", new HealthCheckOptions()
             {
-        // WriteResponse é um delegate que permite alterar a saída.
-            ResponseWriter = (httpContext, result) => {
-            httpContext.Response.ContentType = "application/json";
+                // WriteResponse é um delegate que permite alterar a saída.
+                ResponseWriter = (httpContext, result) =>
+                {
+                    httpContext.Response.ContentType = "application/json";
 
-                var json = new JObject(
-                new JProperty("status", result.Status.ToString()),
-                new JProperty("results", new JObject(result.Entries.Select(pair =>
-                    new JProperty(pair.Key, new JObject(
-                        new JProperty("status", pair.Value.Status.ToString()),
-                        new JProperty("description", pair.Value.Description),
-                        new JProperty("data", new JObject(pair.Value.Data.Select(
-                            p => new JProperty(p.Key, p.Value))))))))));
-                return httpContext.Response.WriteAsync(json.ToString(Formatting.Indented));
+                    var json = new JObject(
+                    new JProperty("status", result.Status.ToString()),
+                    new JProperty("results", new JObject(result.Entries.Select(pair =>
+                        new JProperty(pair.Key, new JObject(
+                            new JProperty("status", pair.Value.Status.ToString()),
+                            new JProperty("description", pair.Value.Description),
+                            new JProperty("data", new JObject(pair.Value.Data.Select(
+                                p => new JProperty(p.Key, p.Value))))))))));
+                    return httpContext.Response.WriteAsync(json.ToString(Formatting.Indented));
                 }
             });
 
-          
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
