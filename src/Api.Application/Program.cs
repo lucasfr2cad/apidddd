@@ -20,7 +20,7 @@ namespace Aplication
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>().UseUrls("http://10.0.0.13:5000");
+                    webBuilder.UseStartup<Startup>();
                 });
     }
 }
