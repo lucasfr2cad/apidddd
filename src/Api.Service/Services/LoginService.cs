@@ -16,7 +16,7 @@ namespace Api.Service.Services
 {
     public class LoginService: BaseService, ILoginService
     {
-        private IUserRepository _repository;
+        private IUserRepository _repository1;
         private SigningConfigurations _signingConfigurations;
         private TokenConfigurations _tokenConfigurations;
         private IConfiguration _configuration {get;}
@@ -33,7 +33,7 @@ namespace Api.Service.Services
         IConfigRepository repository3
         ): base(factory, repository3)
         {
-            _repository = repository;
+            _repository1 = repository;
             _repository2 = repository2;
             _signingConfigurations = signingConfigurations;
             _tokenConfigurations = tokenConfigurations;
@@ -44,7 +44,7 @@ namespace Api.Service.Services
         
         public async Task<UserEntity> Post(UserEntity user)
         {
-            return await _repository.InsertAsync(user);
+            return await _repository1.InsertAsync(user);
         }
         public async Task<int> CheckSession(UserEntity user )
         {   
@@ -70,7 +70,7 @@ namespace Api.Service.Services
             var baseUser = new UserEntity();
             if(user != null && !string.IsNullOrWhiteSpace(user.Email))
             {
-                baseUser = await _repository.FindByLogin(user.Email);
+                baseUser = await _repository1.FindByLogin(user.Email);
                 if((baseUser == null)||(baseUser.ds_senha != user.Senha))
                 {
                     
