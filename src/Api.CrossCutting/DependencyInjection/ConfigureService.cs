@@ -13,7 +13,7 @@ namespace Api.CrossCutting.DependencyInjection
             serviceColletion.AddScoped<IUserService, UserService>();
             serviceColletion.AddScoped<ILoginService, LoginService>();
             serviceColletion.AddScoped<ISessionService, SessionService>();
-            serviceColletion.AddTransient<IPermissionService, PermissionService>();
+            serviceColletion.AddScoped<IPermissionService, PermissionService>();
             
         }
     }

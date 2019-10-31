@@ -70,7 +70,7 @@ namespace Aplication
             
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
-            services.TryAddScoped<IAuthorizationHandler, actionRequirement>();
+            services.AddScoped<IAuthorizationHandler, actionRequirement>();
 
 
             ConfigureService.ConfigureDependenciesService(services);

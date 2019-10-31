@@ -57,6 +57,24 @@ namespace Api.Application.Policy
                      codeUser = Int32.Parse(userId);
                 }
 
+                if (requestType.Equals("GET"))
+                {
+                    column = "st_menu";
+                }
+
+                else if (requestType.Equals("POST"))
+                {
+                    column = "st_adicionar";
+                }
+                else if (requestType.Equals("PUT"))
+                {
+                    column = "st_edita";
+                }
+                else if(requestType.Equals("DELETE"))
+                {
+                    column = "st_excluir";
+                }
+
 
                 var permission = await _service.FindPermission(codeForm, codeUser, condicao2);
                
