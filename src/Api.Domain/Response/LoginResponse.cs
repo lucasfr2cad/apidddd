@@ -1,4 +1,4 @@
-namespace Api.Domain.Utils
+namespace Api.Domain.Response
 {
     public class LoginResponse
     {
