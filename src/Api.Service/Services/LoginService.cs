@@ -8,7 +8,7 @@ using Api.Domain.Entities;
 using Api.Domain.Interfaces.Services.User;
 using Api.Domain.Repository;
 using Api.Domain.Security;
-using Api.Domain.Utils;
+using Api.Domain.Response;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Localization;
