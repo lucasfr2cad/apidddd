@@ -14,6 +14,8 @@ namespace Api.Data.Context
 
         public DbSet<ConfigEntity> config { get; set; }
 
+        public DbSet<ReceiveEntity> receives {get; set;}
+
         public MyContext(DbContextOptions<MyContext> options) :base (options) {}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder){
@@ -22,7 +24,7 @@ namespace Api.Data.Context
             modelBuilder.Entity<SessionEntity>(new SessionsMap().Configure);
             modelBuilder.Entity<PermissionEntity>(new PermissionMap().Configure);
             modelBuilder.Entity<ConfigEntity>(new ConfigMap().Configure);
-
+            modelBuilder.Entity<ReceiveEntity>(new ReceiveMap().Configure);
         }
     }
 }
