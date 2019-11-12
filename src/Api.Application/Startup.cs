@@ -6,8 +6,11 @@ using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 using Api.Application.Policy;
+using Api.Application.Reports;
 using Api.CrossCutting.DependencyInjection;
 using Api.Domain.Security;
+using DevExpress.AspNetCore;
+using DevExpress.XtraReports.Web.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -41,41 +44,43 @@ namespace Aplication
 
         }
 
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddCors(options =>
-        {
-            options.AddPolicy(MyAllowSpecificOrigins,
-            builder =>
-            {
-                builder.WithOrigins("http://localhost:3000/",
-                                    "http://localhost:3000"
-                                    )
-                                .AllowAnyHeader()
-                                .AllowAnyMethod();
-            });
-        });
+            services.AddCors();
 
             services.AddMvc().AddViewLocalization(
             LanguageViewLocationExpanderFormat.Suffix,
             opts => { opts.ResourcesPath = "Resources"; })
             .AddDataAnnotationsLocalization();
 
+            
+            services.AddMvc().ConfigureApplicationPartManager(x => {  
+            var parts = x.ApplicationParts;  
+            var aspNetCoreReportingAssemblyName = typeof(DevExpress.AspNetCore.Reporting.WebDocumentViewer.WebDocumentViewerController).Assembly.GetName().Name;  
+            var reportingPart = parts.FirstOrDefault(part => part.Name == aspNetCoreReportingAssemblyName);  
+                if (reportingPart != null) {  
+                parts.Remove(reportingPart);  
+                }  
+            });  
+            
+
+            services.AddControllers();
+            services.AddDevExpressControls();
 
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<IAuthorizationHandler, actionRequirement>();
 
-
+            
+            services.AddScoped<ReportStorageWebExtension, ReportStorageWebExtension1>();  
+             services.AddMvcCore();
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
-
+            
             var signingConfigurations = new SigningConfigurations();
             services.AddSingleton(signingConfigurations);
 
@@ -84,7 +89,8 @@ namespace Aplication
                 Configuration.GetSection("TokenConfiguration"))
                 .Configure(tokenConfigurations);
             services.AddSingleton(tokenConfigurations);
-
+            
+            
             services.AddAuthentication(authOptions =>
             {
                 authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -117,9 +123,9 @@ namespace Aplication
                     policy.RequireAuthenticatedUser();
                 });
             });
+            
 
-            services.AddControllers();
-
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v2", new OpenApiInfo
@@ -153,7 +159,7 @@ namespace Aplication
                     }
                 });
             });
-
+            
 
         }
 
@@ -180,10 +186,21 @@ namespace Aplication
                 SupportedUICultures = supportedCultures
             });
 
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors(x => x
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowAnyOrigin()
+              );
+
+            app.UseStaticFiles();
+            
+            app.UseDevExpressControls();
+
+            app.UseRouting();
+
 
             app.UseSwagger();
-
+            
             app.UseSwaggerUI(c =>
             {
                 c.RoutePrefix = string.Empty;
@@ -193,12 +210,10 @@ namespace Aplication
             var option = new RewriteOptions();
             option.AddRedirect("^$", "swagger");
             app.UseRewriter(option);
-
-            app.UseRouting();
-
+            
             app.UseAuthorization();
 
-
+            
             app.UseHealthChecks("/health", new HealthCheckOptions()
             {
                 // WriteResponse é um delegate que permite alterar a saída.
@@ -217,7 +232,7 @@ namespace Aplication
                     return httpContext.Response.WriteAsync(json.ToString(Formatting.Indented));
                 }
             });
-
+            
 
             app.UseEndpoints(endpoints =>
             {

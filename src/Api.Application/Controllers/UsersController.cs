@@ -35,8 +35,8 @@ namespace Api.Application.Controllers
             }
         }
 
-        [Authorize(Policy = "actionRequirement")]
-        [Authorize("Bearer")]
+      //  [Authorize(Policy = "actionRequirement")]
+      //  [Authorize("Bearer")]
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {

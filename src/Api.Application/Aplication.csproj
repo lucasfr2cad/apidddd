@@ -5,15 +5,40 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Reports\UserReport.repx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\UserReport.repx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Api.Domain\Domain.csproj" />
     <ProjectReference Include="..\Api.Service\Service.csproj" />
     <ProjectReference Include="..\Api.CrossCutting\CrossCutting.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DevExpress.AspNetCore.Reporting" Version="19.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Reports\UserReport.cs">
+      <DependentUpon>UserReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\UserReport.Designer.cs">
+      <DependentUpon>UserReport.repx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

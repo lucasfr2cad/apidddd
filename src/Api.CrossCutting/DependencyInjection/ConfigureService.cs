@@ -15,7 +15,7 @@ namespace Api.CrossCutting.DependencyInjection
             serviceColletion.AddScoped<ILoginService, LoginService>();
             serviceColletion.AddScoped<ISessionService, SessionService>();
             serviceColletion.AddScoped<IPermissionService, PermissionService>();
-            serviceColletion.AddScoped<IReceiveService, ReceiveService>();
+            serviceColletion.AddScoped<IReceiveService, ReceiveService>();            
         }
     }
 }
