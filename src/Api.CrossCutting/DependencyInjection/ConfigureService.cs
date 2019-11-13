@@ -1,3 +1,4 @@
+using Api.Domain.Interfaces.Services.Client;
 using Api.Domain.Interfaces.Services.Permission;
 using Api.Domain.Interfaces.Services.Receive;
 using Api.Domain.Interfaces.Services.Session;
@@ -11,11 +12,12 @@ namespace Api.CrossCutting.DependencyInjection
     {
         public static void ConfigureDependenciesService(IServiceCollection serviceColletion)
         {
+            serviceColletion.AddScoped<IClientService, ClientService>();
             serviceColletion.AddScoped<IUserService, UserService>();
             serviceColletion.AddScoped<ILoginService, LoginService>();
             serviceColletion.AddScoped<ISessionService, SessionService>();
             serviceColletion.AddScoped<IPermissionService, PermissionService>();
-            serviceColletion.AddScoped<IReceiveService, ReceiveService>();            
+            serviceColletion.AddScoped<IReceiveService, ReceiveService>();
         }
     }
 }
