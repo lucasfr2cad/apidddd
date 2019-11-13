@@ -11,7 +11,8 @@ namespace Api.Application.Reports
     {
          readonly string ReportDirectory;
         const string FileExtension = ".repx";
-        public ReportStorageWebExtension1(IHostingEnvironment env)
+ 
+        public ReportStorageWebExtension1(IWebHostEnvironment env)
         {
             ReportDirectory = Path.Combine(env.ContentRootPath, "Reports");
             if (!Directory.Exists(ReportDirectory))
