@@ -35,10 +35,9 @@ namespace Api.Application.Reports
             // Determines whether or not the URL passed to the current Report Storage is valid. 
             // For instance, implement your own logic to prohibit URLs that contain white spaces or some other special characters. 
             // This method is called before the CanSetData and GetData methods.
-
-            return true;
+            return url == null;
         }
-
+        
         public override byte[] GetData(string url)
         {
             // Returns report layout data stored in a Report Storage using the specified URL. 
