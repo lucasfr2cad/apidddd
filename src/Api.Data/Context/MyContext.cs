@@ -16,6 +16,8 @@ namespace Api.Data.Context
 
         public DbSet<ReceiveEntity> receives {get; set;}
 
+        public DbSet<LayoutEntity> layouts {get; set;}
+
         public MyContext(DbContextOptions<MyContext> options) :base (options) {}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder){
@@ -25,6 +27,7 @@ namespace Api.Data.Context
             modelBuilder.Entity<PermissionEntity>(new PermissionMap().Configure);
             modelBuilder.Entity<ConfigEntity>(new ConfigMap().Configure);
             modelBuilder.Entity<ReceiveEntity>(new ReceiveMap().Configure);
+            modelBuilder.Entity<LayoutEntity>(new LayoutMap().Configure);
         }
     }
 }

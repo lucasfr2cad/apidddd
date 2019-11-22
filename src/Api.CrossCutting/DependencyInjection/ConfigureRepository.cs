@@ -17,6 +17,7 @@ namespace Api.CrossCutting.DependencyInjection
             serviceColletion.AddScoped<IPermissionRepository, PermissionImplementation>();
             serviceColletion.AddScoped<IConfigRepository, ConfigImplementation>();
             serviceColletion.AddScoped<ReceiveImplementation>();
+            serviceColletion.AddScoped<ILayoutRepository, LayoutImplementation>();
             serviceColletion.AddDbContext<MyContext>(
                options => options.UseNpgsql("Host=10.0.0.10;Port=5432;Database=gcad;User Id=rei;Password=teste;")
            );

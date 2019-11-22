@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
-using System.Net.Mime;
-using System.Threading;
-using System.Threading.Tasks;
 using Api.Application.Policy;
-using Api.Application.Reports;
+using Api.Application.Services;
 using Api.CrossCutting.DependencyInjection;
+using Api.Domain.Interfaces.Services.LayoutService;
 using Api.Domain.Security;
 using DevExpress.AspNetCore;
 using DevExpress.XtraReports.Web.Extensions;
@@ -18,17 +17,13 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Rewrite;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
@@ -58,29 +53,32 @@ namespace Aplication
             .AddDataAnnotationsLocalization();
 
             
-            services.AddMvc().ConfigureApplicationPartManager(x => {  
-            var parts = x.ApplicationParts;  
-            var aspNetCoreReportingAssemblyName = typeof(DevExpress.AspNetCore.Reporting.WebDocumentViewer.WebDocumentViewerController).Assembly.GetName().Name;  
-            var reportingPart = parts.FirstOrDefault(part => part.Name == aspNetCoreReportingAssemblyName);  
-                if (reportingPart != null) {  
-                parts.Remove(reportingPart);  
-                }  
-            });  
+            // services.AddMvc().ConfigureApplicationPartManager(x => {  
+            // var parts = x.ApplicationParts;  
+            // var aspNetCoreReportingAssemblyName = typeof(DevExpress.AspNetCore.Reporting.WebDocumentViewer.WebDocumentViewerController).Assembly.GetName().Name;  
+            // var reportingPart = parts.FirstOrDefault(part => part.Name == aspNetCoreReportingAssemblyName);  
+            //     if (reportingPart != null) {  
+            //     parts.Remove(reportingPart);  
+            //     }  
+            // });  
             
 
-            services.AddControllers();
+            //services.AddControllers();
             services.AddDevExpressControls();
-
+            
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<IAuthorizationHandler, actionRequirement>();
 
             
-            services.AddScoped<ReportStorageWebExtension, ReportStorageWebExtension1>();  
+             
              services.AddMvcCore();
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
             
+            
+            services.AddTransient<ReportStorageWebExtension, ReportStorageWebExtension1>();
+
             var signingConfigurations = new SigningConfigurations();
             services.AddSingleton(signingConfigurations);
 
@@ -164,8 +162,11 @@ namespace Aplication
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILayoutService service)
         {
+            //DevExpress.XtraReports.Web.Extensions.ReportStorageWebExtension.RegisterExtensionGlobal(new ReportStorageWebExtension1(service));
+
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
