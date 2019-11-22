@@ -1,9 +1,8 @@
-
 using System;
 using System.Net;
 using System.Threading.Tasks;
 using Api.Domain.Entities;
-using Api.Domain.Interfaces.Services.User;
+using Api.Domain.Interfaces.Services.Client;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,32 +10,17 @@ namespace Api.Application.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsersController : ControllerBase
+    public class ClientsController : ControllerBase
     {
 
-        private const int c_codigoForm = 5;
-        private IUserService _service;
-
-        public UsersController(IUserService service)
+        private IClientService _service;
+        public ClientsController(IClientService service)
         {
             _service = service;
         }
 
-        public class authorize : AuthorizeAttribute
-        {
-            public int codigo_form;
-
-
-
-            public authorize(string P1, int pcod) : base(P1)
-            {
-                codigo_form = pcod;
-
-            }
-        }
-
-      //  [Authorize(Policy = "actionRequirement")]
-      //  [Authorize("Bearer")]
+        //[Authorize(Policy = "actionRequirement")]
+        [Authorize("Bearer")]
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
@@ -55,30 +39,8 @@ namespace Api.Application.Controllers
         }
 
         [Authorize("Bearer")]
-        [HttpGet]
-        [Route("{id}", Name = "GetWhithId")]
-
-        public async Task<ActionResult> Get(int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState); //400 
-            }
-            try
-            {
-                return Ok(await _service.Get(id));
-            }
-            catch (ArgumentException e)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
-            }
-
-        }
-
-
-        [Authorize("Bearer")]
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] UserEntity user)
+        public async Task<ActionResult> Post([FromBody] ClientEntity client)
         {
             if (!ModelState.IsValid)
             {
@@ -86,7 +48,7 @@ namespace Api.Application.Controllers
             }
             try
             {
-                var result = await _service.Post(user);
+                var result = await _service.Post(client);
                 if (result != null)
                 {
                     // caso criado retorna o objeto criado e no cabeçalho uma url para a consulta
@@ -105,7 +67,7 @@ namespace Api.Application.Controllers
 
         [Authorize("Bearer")]
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody] UserEntity user)
+        public async Task<ActionResult> Put([FromBody] ClientEntity client)
         {
             if (!ModelState.IsValid)
             {
@@ -113,7 +75,7 @@ namespace Api.Application.Controllers
             }
             try
             {
-                var result = await _service.Put(user);
+                var result = await _service.Put(client);
 
                 if (result != null)
                 {
@@ -130,6 +92,7 @@ namespace Api.Application.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
+
         [Authorize("Bearer")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
@@ -148,6 +111,5 @@ namespace Api.Application.Controllers
             }
 
         }
-
     }
 }
