@@ -1,6 +1,8 @@
-﻿using Api.Domain.Entities;
+﻿using Api.Application.Reports;
+using Api.Domain.Entities;
 using Api.Domain.Interfaces.Services.LayoutService;
 using DevExpress.XtraReports.UI;
+using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +12,6 @@ namespace Api.Application.Services
 {
     public class ReportStorageWebExtension1 : DevExpress.XtraReports.Web.Extensions.ReportStorageWebExtension
     {
-
         private ILayoutService layoutService;
 
         public ReportStorageWebExtension1(ILayoutService service)
@@ -40,19 +41,30 @@ namespace Api.Application.Services
         {
             // Returns report layout data stored in a Report Storage using the specified URL. 
             // This method is called only for valid URLs after the IsValidUrl method is called.
-            var idReport = Convert.ToInt32(url);
-            var layoutFinded = findLayout(idReport);
-            if (layoutFinded != null)
+            int idConvertido;
+            if (Int32.TryParse(url, out idConvertido))
             {
+                var layoutFinded = findLayout(idConvertido);
                 return StringParaByteArray(layoutFinded.ds_conteudo);
             }
             else
             {
-                XtraReport newReport = new XtraReport();
-                using (MemoryStream output = new MemoryStream())
+                if (ReportsFactory.Reports.ContainsKey(url))
                 {
-                    newReport.SaveLayoutToXml(output);
-                    return output.ToArray();
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        ReportsFactory.Reports[url]().SaveLayoutToXml(ms);
+                        return ms.ToArray();
+                    }
+                }
+                else
+                {
+                    XtraReport newReport = new XtraReport();
+                    using (MemoryStream output = new MemoryStream())
+                    {
+                        newReport.SaveLayoutToXml(output);
+                        return output.ToArray();
+                    }
                 }
             }
         }
