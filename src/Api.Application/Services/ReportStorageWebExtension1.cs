@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
-
+using DevExpress.DataAccess.ObjectBinding;
+using Api.Application.Data;
 
 namespace Api.Application.Services
 {
@@ -44,8 +45,25 @@ namespace Api.Application.Services
             int idConvertido;
             if (Int32.TryParse(url, out idConvertido))
             {
+                XtraReport newReport = new XtraReport();
                 var layoutFinded = findLayout(idConvertido);
-                return StringParaByteArray(layoutFinded.ds_conteudo);
+                MemoryStream streamLayout = new MemoryStream(StringParaByteArray(layoutFinded.ds_conteudo));
+                newReport.LoadLayout(streamLayout);
+
+                ObjectDataSource ods = new ObjectDataSource()
+                {
+                    // DataSource = typeof(MyData), //Get the type where the GetCustomerProductsList method is registered  
+                    // Constructor = new ObjectConstructorInfo(), //Specify constructor if GetCustomerProductsList method is not static  
+                    // DataMember = "MyData" //Specify method name  
+                    Name = "MyDataDataSource",
+                    DataSource = typeof(MyData),
+                    DataMember = "GetData" //Specify method name  
+                };
+                newReport.DataSource = ods;
+
+                MemoryStream streamReport = new MemoryStream();
+                newReport.SaveLayoutToXml(streamReport);
+                return streamReport.ToArray();
             }
             else
             {
