@@ -7,7 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-
+using DevExpress.DataAccess.ObjectBinding;
+using Api.Application.Data;
 
 namespace Api.Application.Services
 {
@@ -48,22 +49,26 @@ namespace Api.Application.Services
             int idConvertido;
             if (Int32.TryParse(url, out idConvertido))
             {
-                var layoutFinded = findLayout(idConvertido);
-                byte[] bytes = StringParaByteArray(layoutFinded.ds_conteudo);
-                MemoryStream stream = new MemoryStream( bytes );
                 XtraReport newReport = new XtraReport();
-                DataTable dt = new DataTable();
-                dt.Columns.Add(new DataColumn("ID",typeof(Int32)));
-                dt.Columns.Add(new DataColumn("Name",typeof(String)));
-                dt.Rows.Add(1, "Lucas");
-                dt.Rows.Add(2, "Fogaça");
-                newReport.DataSource =  dt;
-                newReport.LoadLayout(stream);
-                MemoryStream retorno = new MemoryStream();
-                newReport.SaveLayoutToXml(retorno);
-                var teste = ByteArrayParaString(retorno.ToArray());
-                return retorno.ToArray();
-                //return StringParaByteArray(layoutFinded.ds_conteudo);
+                var layoutFinded = findLayout(idConvertido);
+
+                MemoryStream streamLayout = new MemoryStream(StringParaByteArray(layoutFinded.ds_conteudo));
+                newReport.LoadLayout(streamLayout);
+
+                ObjectDataSource ods = new ObjectDataSource()
+                {
+                    // DataSource = typeof(MyData), //Get the type where the GetCustomerProductsList method is registered  
+                    // Constructor = new ObjectConstructorInfo(), //Specify constructor if GetCustomerProductsList method is not static  
+                    // DataMember = "MyData" //Specify method name  
+                    Name = "MyDataDataSource",
+                    DataSource = typeof(MyData),
+                    DataMember = "GetData" //Specify method name  
+                };
+                newReport.DataSource = ods;
+
+                MemoryStream streamReport = new MemoryStream();
+                newReport.SaveLayoutToXml(streamReport);
+                return streamReport.ToArray();
             }
             else
             {
