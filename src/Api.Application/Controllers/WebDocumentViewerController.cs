@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Application.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
-    [Route("DXXRDV")]
+ //   [Route("DXXRDV")]
     public class WebDocumentViewerController : DevExpress.AspNetCore.Reporting.Native.ControllerBase
     {
         public WebDocumentViewerController(IWebDocumentViewerMvcControllerService controllerService) : base(controllerService) { }

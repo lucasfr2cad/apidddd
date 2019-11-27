@@ -8,10 +8,11 @@ namespace Api.Application.Reports
     public static class ReportsFactory
     {
 
-         public static Dictionary<string, Func<XtraReport>> Reports = new Dictionary<string, Func<XtraReport>>()
+        public static Dictionary<string, Func<XtraReport>> Reports = new Dictionary<string, Func<XtraReport>>()
         {
             ["UserReport"] = () => new UserReport(),
+            ["Filipe"] = () => new FilipeReport()
         };
-        
+
     }
 }

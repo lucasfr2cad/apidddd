@@ -5,10 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Reports\FilipeReport.repx" />
+    <None Remove="Reports\light.repx" />
     <None Remove="Reports\UserReport.repx" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Reports\FilipeReport.repx" />
+    <EmbeddedResource Include="Reports\light.repx" />
     <EmbeddedResource Include="Reports\UserReport.repx" />
   </ItemGroup>
 
@@ -33,6 +37,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Reports\FilipeReport.cs">
+      <DependentUpon>FilipeReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\FilipeReport.Designer.cs">
+      <DependentUpon>FilipeReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\light.cs">
+      <DependentUpon>light.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\light.Designer.cs">
+      <DependentUpon>light.repx</DependentUpon>
+    </Compile>
     <Compile Update="Reports\UserReport.cs">
       <DependentUpon>UserReport.repx</DependentUpon>
     </Compile>

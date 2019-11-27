@@ -5,6 +5,7 @@ using DevExpress.XtraReports.UI;
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 
 
@@ -37,6 +38,9 @@ namespace Api.Application.Services
             return true;
         }
 
+
+
+
         public override byte[] GetData(string url)
         {
             // Returns report layout data stored in a Report Storage using the specified URL. 
@@ -45,7 +49,21 @@ namespace Api.Application.Services
             if (Int32.TryParse(url, out idConvertido))
             {
                 var layoutFinded = findLayout(idConvertido);
-                return StringParaByteArray(layoutFinded.ds_conteudo);
+                byte[] bytes = StringParaByteArray(layoutFinded.ds_conteudo);
+                MemoryStream stream = new MemoryStream( bytes );
+                XtraReport newReport = new XtraReport();
+                DataTable dt = new DataTable();
+                dt.Columns.Add(new DataColumn("ID",typeof(Int32)));
+                dt.Columns.Add(new DataColumn("Name",typeof(String)));
+                dt.Rows.Add(1, "Lucas");
+                dt.Rows.Add(2, "Fogaça");
+                newReport.DataSource =  dt;
+                newReport.LoadLayout(stream);
+                MemoryStream retorno = new MemoryStream();
+                newReport.SaveLayoutToXml(retorno);
+                var teste = ByteArrayParaString(retorno.ToArray());
+                return retorno.ToArray();
+                //return StringParaByteArray(layoutFinded.ds_conteudo);
             }
             else
             {

@@ -15,6 +15,12 @@
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Update="Reports\FilipeReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Reports\light.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Reports\UserReport.cs">
       <SubType>Component</SubType>
     </Compile>
