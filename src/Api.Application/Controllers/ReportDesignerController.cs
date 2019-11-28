@@ -31,24 +31,24 @@ namespace Api.Application.Controllers
         Dictionary<string, object> GetAvailableDataSources()
         {
             var dataSources = new Dictionary<string, object>();
-            SqlDataSource dsClientes = new SqlDataSource("Test_Connection");
-            var queryClients = SelectQueryFluentBuilder
-                .AddTable("public.clientes")
-                .SelectAllColumns()
-                .Build("Clientes");
-            dsClientes.Queries.Add(queryClients);
-            dsClientes.RebuildResultSchema();
+            // SqlDataSource dsClientes = new SqlDataSource("Test_Connection");
+            // var queryClients = SelectQueryFluentBuilder
+            //     .AddTable("public.clientes")
+            //     .SelectAllColumns()
+            //     .Build("Clientes");
+            // dsClientes.Queries.Add(queryClients);
+            // dsClientes.RebuildResultSchema();
 
-            SqlDataSource dsUsers = new SqlDataSource("Test_Connection");
-            var queryUsers = SelectQueryFluentBuilder
-                .AddTable("base.usuarios")
-                .SelectAllColumns()
-                .Build("Usuarios");
-            dsUsers.Queries.Add(queryUsers);
-            dsUsers.RebuildResultSchema();
+            // SqlDataSource dsUsers = new SqlDataSource("Test_Connection");
+            // var queryUsers = SelectQueryFluentBuilder
+            //     .AddTable("base.usuarios")
+            //     .SelectAllColumns()
+            //     .Build("Usuarios");
+            // dsUsers.Queries.Add(queryUsers);
+            // dsUsers.RebuildResultSchema();
 
-            dataSources.Add("DataSourceClients", dsClientes);
-            dataSources.Add("DataSourceUsers", dsUsers);
+            // dataSources.Add("DataSourceClients", dsClientes);
+            // dataSources.Add("DataSourceUsers", dsUsers);
             return dataSources;
         }
     }

@@ -57,12 +57,12 @@ namespace Api.Application.Services
 
                 ObjectDataSource ods = new ObjectDataSource()
                 {
-                    // DataSource = typeof(MyData), //Get the type where the GetCustomerProductsList method is registered  
-                    // Constructor = new ObjectConstructorInfo(), //Specify constructor if GetCustomerProductsList method is not static  
-                    // DataMember = "MyData" //Specify method name  
                     Name = "MyDataDataSource",
-                    DataSource = typeof(MyData),
-                    DataMember = "GetData" //Specify method name  
+                    DataSource = typeof(MyData), //Get the type where the GetCustomerProductsList method is registered  
+                    Constructor = new ObjectConstructorInfo(), //Specify constructor if GetCustomerProductsList method is not static 
+                    // Name = "MyDataDataSource",
+                    // DataSource = typeof(MyData),
+                    // DataMember = "GetData" //Specify method name  
                 };
                 newReport.DataSource = ods;
 
