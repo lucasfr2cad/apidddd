@@ -1,115 +1,24 @@
-﻿using Api.Application.Reports;
-using Api.Domain.Entities;
+﻿using Api.Domain.Entities;
 using Api.Domain.Interfaces.Services.LayoutService;
 using DevExpress.XtraReports.UI;
-using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using DevExpress.DataAccess.ObjectBinding;
-using Api.Application.Data;
-using Api.Domain.Interfaces.Services.User;
-using Api.Data.Implementations;
-using Api.Data.Repository;
 using DevExpress.DataAccess.Json;
 using DevExpress.Compatibility.System.Web;
-using Microsoft.EntityFrameworkCore;
-using Api.Data.Context;
-using System.Linq;
+using Api.Domain.Interfaces.Services.User;
 
 namespace Api.Application.Services
 {
-
-    public class ParametrosReport
-    { 
-        public string ds_tipo_report { get; set; }
-        public int cd_report { get; set; }
-       public string ds_nome { get; set; }
-
-        public int min_sessoes { get; set; }
-    }
-
-    public static class FactoryReport 
-    { 
-        public static IReport CM_GetReport(ParametrosReport p_ParametroReport, ILayoutService layoutService)
-        {
-            switch (p_ParametroReport.ds_tipo_report)
-            {
-                case "pView":
-                    return new ProdutosReport(p_ParametroReport, layoutService);
-                case "dView":
-                    return new UserReport(p_ParametroReport, layoutService);
-            }
-
-            throw new ApplicationException("Report não encontrado.");
-        }
-    }
-
-
-    public class UserReport : IReport
+    public class CustomReportStorageWebExtension : DevExpress.XtraReports.Web.Extensions.ReportStorageWebExtension
     {
-        public UserReport(ParametrosReport p_ParametrosReport, ILayoutService p_LayoutService) : base(p_ParametrosReport, p_LayoutService)
+        private DictionaryServices services;
+
+        public CustomReportStorageWebExtension(ILayoutService layoutService, IUserService userService)
         {
-        }
-
-        public override object CM_CarregaDataSource()
-        {
-            var  options = new DbContextOptionsBuilder<MyContext>().UseNpgsql("Host=10.0.0.10;Port=5432;Database=gcad;User Id=rei;Password=teste;").Options;
-            var context = new MyContext(options);
-            var baseRepository = new BaseRepository<UserEntity>(context);
-
-            var m_DataSource = baseRepository._dataset.Where(a => a.ds_nome.Contains(C_ParametrosReport.ds_nome)).ToList();
-
-            var m_ListaUserDetail = new List<UserDetailDTO>();
-
-            foreach (var m_Registro in m_DataSource)
-                m_ListaUserDetail.Add(new UserDetailDTO()
-                {
-                    C_Codigo = m_Registro.cd_codigo,
-                    C_Nome = m_Registro.ds_nome
-                });
-
-            var m_Retorno = new UserDTO()
-            {
-                C_DataReport = DateTime.Now,
-                C_NomeReport = "Majin Buu",
-                C_ListaUsers = m_ListaUserDetail
-            };
-
-            return m_Retorno;
-        }
-
-    }
-
-    public abstract class IReport
-    {
-        public ParametrosReport C_ParametrosReport { get; set; }
-        public ILayoutService C_LayoutService { get; set; }
-
-        public IReport(ParametrosReport p_ParametrosReport, ILayoutService p_LayoutService)
-        {
-            C_ParametrosReport = p_ParametrosReport;
-            C_LayoutService = p_LayoutService;
-        }
-
-        public abstract object CM_CarregaDataSource();
-
-        public string CM_GetLayout()
-        {
-            var layoutFinded = C_LayoutService.Get(C_ParametrosReport.cd_report);
-            return layoutFinded.Result.ds_conteudo;
-        }
-    }
-
-
-
-    public class ReportStorageWebExtension1 : DevExpress.XtraReports.Web.Extensions.ReportStorageWebExtension
-    {
-        private ILayoutService layoutService;
-
-        public ReportStorageWebExtension1(ILayoutService service)
-        {
-            layoutService = service;
+            services = new DictionaryServices();
+            services.Add(DictionaryServices.LAYOUT_SERVICE_KEY, layoutService);
+            services.Add(DictionaryServices.USER_SERVICE_KEY, userService);
         }
 
         public override bool CanSetData(string url)
@@ -132,33 +41,39 @@ namespace Api.Application.Services
 
         public override byte[] GetData(string url)
         {
-            var m_Filtros = new ParametrosReport() { ds_tipo_report = "dView", cd_report = 7, ds_nome = "reitech" };
+            var m_Filtros = new ParametrosReport() { ds_tipo_report = "USER_REPORT", cd_report = 7, ds_data_source = "UserDataSource" };
             var m_Serializer = new JavaScriptSerializer();
             //var m_Filtros = m_Serializer.Deserialize<filtros>(p_Filtros);
 
-            var m_IReport = FactoryReport.CM_GetReport(m_Filtros, layoutService);
+            // build report model
+            var m_IReport = FactoryReport.CM_GetReport(m_Filtros, services);
 
+            // build layout
             var m_Layout = m_IReport.CM_GetLayout();
 
+            // build XtraReport
             XtraReport newReport = new XtraReport();
-           
+            // load layout in XtraReport
             MemoryStream streamLayout = new MemoryStream(StringParaByteArray(m_Layout));
             newReport.LoadLayout(streamLayout);
 
+            // loadDataSource
             var m_Data = m_IReport.CM_CarregaDataSource();
-
+            // serialize dataSource
             var jsonSerializado = m_Serializer.Serialize(m_Data);
-            var json = new JsonDataSource();
 
+            // build CustomJsonSource
+            var json = new JsonDataSource();
             json.JsonSource = new CustomJsonSource(jsonSerializado);
-            json.Name = m_Filtros.ds_tipo_report;
+            json.Name = m_Filtros.ds_data_source;
             json.Fill();
 
+            // attach CustomJsonSource to XtraReport
             newReport.DataSource = json;
 
+            // Return XtraReport in bytes to FrontEnd
             MemoryStream streamReport = new MemoryStream();
             newReport.SaveLayoutToXml(streamReport);
-
             return streamReport.ToArray();
         }
 
@@ -167,7 +82,7 @@ namespace Api.Application.Services
             // Returns a dictionary of the existing report URLs and display names. 
             // This method is called when running the Report Designer, 
             // before the Open Report and Save Report dialogs are shown and after a new report is saved to a storage.
-
+            var layoutService = (ILayoutService)services[DictionaryServices.LAYOUT_SERVICE_KEY];
             var reports = layoutService.GetAll().Result;
             var dicionario = new Dictionary<string, string>();
             foreach (var report in reports)
@@ -185,7 +100,7 @@ namespace Api.Application.Services
             MemoryStream output = new MemoryStream();
             report.SaveLayoutToXml(output);
             Layout.ds_conteudo = ByteArrayParaString(output.ToArray());
-
+            var layoutService = (ILayoutService)services[DictionaryServices.LAYOUT_SERVICE_KEY];
             int idConvertido;
             if (Int32.TryParse(url, out idConvertido))
             {

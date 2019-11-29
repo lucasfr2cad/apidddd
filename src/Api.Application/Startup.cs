@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using Api.Application.Policy;
 using Api.Application.Services;
@@ -77,7 +76,7 @@ namespace Aplication
             ConfigureRepository.ConfigureDependenciesRepository(services);
             
             
-            services.AddTransient<ReportStorageWebExtension, ReportStorageWebExtension1>();
+            services.AddTransient<ReportStorageWebExtension, CustomReportStorageWebExtension>();
 
             var signingConfigurations = new SigningConfigurations();
             services.AddSingleton(signingConfigurations);
