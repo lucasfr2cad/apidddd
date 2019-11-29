@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Api.Data.Context;
 using Api.Data.Repository;
@@ -14,6 +16,12 @@ namespace Api.Data.Implementations
         {
             
         }
+
+        public List<UserEntity> Where(System.Linq.Expressions.Expression<System.Func<UserEntity, bool>> p_Filtro)
+        {
+            return _dataset.Where(p_Filtro).ToList();
+        }
+
 
         public async Task<UserEntity> FindByLogin(string ds_nome)
         {

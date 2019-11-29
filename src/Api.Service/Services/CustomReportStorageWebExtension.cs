@@ -1,28 +1,24 @@
-﻿using Api.Application.Reports;
-using Api.Domain.Entities;
+﻿using Api.Domain.Entities;
 using Api.Domain.Interfaces.Services.LayoutService;
 using DevExpress.XtraReports.UI;
-using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
-using DevExpress.DataAccess.ObjectBinding;
-using Api.Application.Data;
+using DevExpress.DataAccess.Json;
+using DevExpress.Compatibility.System.Web;
 using Api.Domain.Interfaces.Services.User;
 
 namespace Api.Application.Services
 {
-    public class ReportStorageWebExtension1 : DevExpress.XtraReports.Web.Extensions.ReportStorageWebExtension
+    public class CustomReportStorageWebExtension : DevExpress.XtraReports.Web.Extensions.ReportStorageWebExtension
     {
-        private ILayoutService layoutService;
+        private DictionaryServices services;
 
-        private IUserService _userService;
-
-        public ReportStorageWebExtension1(ILayoutService service, IUserService userService)
+        public CustomReportStorageWebExtension(ILayoutService layoutService, IUserService userService)
         {
-            layoutService = service;
-            _userService = userService;
+            services = new DictionaryServices();
+            services.Add(DictionaryServices.LAYOUT_SERVICE_KEY, layoutService);
+            services.Add(DictionaryServices.USER_SERVICE_KEY, userService);
         }
 
         public override bool CanSetData(string url)
@@ -43,69 +39,41 @@ namespace Api.Application.Services
             return true;
         }
 
-
-
-
         public override byte[] GetData(string url)
         {
-            // Returns report layout data stored in a Report Storage using the specified URL. 
-            // This method is called only for valid URLs after the IsValidUrl method is called.
-            int idConvertido;
-            if (Int32.TryParse(url, out idConvertido))
-            {
-                XtraReport newReport = new XtraReport();
-                var layoutFinded = findLayout(idConvertido);
+            var m_Serializer = new JavaScriptSerializer();
+            var m_Filtros = m_Serializer.Deserialize<ParametrosReport>(url);
 
-                MemoryStream streamLayout = new MemoryStream(StringParaByteArray(layoutFinded.ds_conteudo));
-                newReport.LoadLayout(streamLayout);
+            // build report model
+            var m_IReport = FactoryReport.CM_GetReport(m_Filtros, services);
 
-                ObjectDataSource ods = new ObjectDataSource()
-                {
-                    Name = "MyDataDataSource",
-                    DataSource = typeof(MyData), //Get the type where the GetCustomerProductsList method is registered  
-                    //Constructor = new ObjectConstructorInfo()
-                    Constructor = new ObjectConstructorInfo((new Parameter("service", typeof(IUserService), _userService))) //Specify constructor if GetCustomerProductsList method is not static 
-                    // Name = "MyDataDataSource",
-                    // DataSource = typeof(MyData),
-                    // DataMember = "GetData" //Specify method name  
-                };
-                newReport.DataSource = ods;
+            // build layout
+            var m_Layout = m_IReport.CM_GetLayout();
 
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    newReport.SaveLayoutToXml(stream);
-                    return stream.ToArray();
-                }
-                // MemoryStream streamReport = new MemoryStream();
-                // newReport.SaveLayoutToXml(streamReport);
-                // return streamReport.ToArray();
-            }
-            else
-            {
-                if (ReportsFactory.Reports.ContainsKey(url))
-                {
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        ReportsFactory.Reports[url]().SaveLayoutToXml(ms);
-                        return ms.ToArray();
-                    }
-                }
-                else
-                {
-                    XtraReport newReport = new XtraReport();
-                    using (MemoryStream output = new MemoryStream())
-                    {
-                        newReport.SaveLayoutToXml(output);
-                        return output.ToArray();
-                    }
-                }
-            }
-        }
+            // build XtraReport
+            XtraReport newReport = new XtraReport();
+            // load layout in XtraReport
+            MemoryStream streamLayout = new MemoryStream(StringParaByteArray(m_Layout));
+            newReport.LoadLayout(streamLayout);
 
-        public LayoutEntity findLayout(int idReport)
-        {
-            var layoutFinded = layoutService.Get(idReport);
-            return layoutFinded.Result;
+            // loadDataSource
+            var m_Data = m_IReport.CM_CarregaDataSource();
+            // serialize dataSource
+            var jsonSerializado = m_Serializer.Serialize(m_Data);
+
+            // build CustomJsonSource
+            var json = new JsonDataSource();
+            json.JsonSource = new CustomJsonSource(jsonSerializado);
+            json.Name = m_Filtros.ds_data_source;
+            json.Fill();
+
+            // attach CustomJsonSource to XtraReport
+            newReport.DataSource = json;
+
+            // Return XtraReport in bytes to FrontEnd
+            MemoryStream streamReport = new MemoryStream();
+            newReport.SaveLayoutToXml(streamReport);
+            return streamReport.ToArray();
         }
 
         public override Dictionary<string, string> GetUrls()
@@ -113,7 +81,7 @@ namespace Api.Application.Services
             // Returns a dictionary of the existing report URLs and display names. 
             // This method is called when running the Report Designer, 
             // before the Open Report and Save Report dialogs are shown and after a new report is saved to a storage.
-
+            var layoutService = (ILayoutService)services[DictionaryServices.LAYOUT_SERVICE_KEY];
             var reports = layoutService.GetAll().Result;
             var dicionario = new Dictionary<string, string>();
             foreach (var report in reports)
@@ -131,7 +99,7 @@ namespace Api.Application.Services
             MemoryStream output = new MemoryStream();
             report.SaveLayoutToXml(output);
             Layout.ds_conteudo = ByteArrayParaString(output.ToArray());
-
+            var layoutService = (ILayoutService)services[DictionaryServices.LAYOUT_SERVICE_KEY];
             int idConvertido;
             if (Int32.TryParse(url, out idConvertido))
             {

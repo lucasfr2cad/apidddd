@@ -5,25 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Reports\FilipeReport.repx" />
-    <None Remove="Reports\light.repx" />
-    <None Remove="Reports\UserReport.repx" />
-  </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Reports\FilipeReport.repx" />
-    <EmbeddedResource Include="Reports\light.repx" />
-    <EmbeddedResource Include="Reports\UserReport.repx" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Api.Domain\Domain.csproj" />
     <ProjectReference Include="..\Api.Service\Service.csproj" />
     <ProjectReference Include="..\Api.CrossCutting\CrossCutting.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DevExpress.AspNetCore.Reporting" Version="19.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
@@ -35,26 +23,4 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Reports\FilipeReport.cs">
-      <DependentUpon>FilipeReport.repx</DependentUpon>
-    </Compile>
-    <Compile Update="Reports\FilipeReport.Designer.cs">
-      <DependentUpon>FilipeReport.repx</DependentUpon>
-    </Compile>
-    <Compile Update="Reports\light.cs">
-      <DependentUpon>light.repx</DependentUpon>
-    </Compile>
-    <Compile Update="Reports\light.Designer.cs">
-      <DependentUpon>light.repx</DependentUpon>
-    </Compile>
-    <Compile Update="Reports\UserReport.cs">
-      <DependentUpon>UserReport.repx</DependentUpon>
-    </Compile>
-    <Compile Update="Reports\UserReport.Designer.cs">
-      <DependentUpon>UserReport.repx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
 </Project>
