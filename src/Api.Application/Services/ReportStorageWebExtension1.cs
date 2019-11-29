@@ -8,9 +8,101 @@ using System.Collections.Generic;
 using System.IO;
 using DevExpress.DataAccess.ObjectBinding;
 using Api.Application.Data;
+using Api.Domain.Interfaces.Services.User;
+using Api.Data.Implementations;
+using Api.Data.Repository;
+using DevExpress.DataAccess.Json;
+using DevExpress.Compatibility.System.Web;
+using Microsoft.EntityFrameworkCore;
+using Api.Data.Context;
+using System.Linq;
 
 namespace Api.Application.Services
 {
+
+    public class ParametrosReport
+    { 
+        public string ds_tipo_report { get; set; }
+        public int cd_report { get; set; }
+       public string ds_nome { get; set; }
+
+        public int min_sessoes { get; set; }
+    }
+
+    public static class FactoryReport 
+    { 
+        public static IReport CM_GetReport(ParametrosReport p_ParametroReport, ILayoutService layoutService)
+        {
+            switch (p_ParametroReport.ds_tipo_report)
+            {
+                case "pView":
+                    return new ProdutosReport(p_ParametroReport, layoutService);
+                case "dView":
+                    return new UserReport(p_ParametroReport, layoutService);
+            }
+
+            throw new ApplicationException("Report não encontrado.");
+        }
+    }
+
+
+    public class UserReport : IReport
+    {
+        public UserReport(ParametrosReport p_ParametrosReport, ILayoutService p_LayoutService) : base(p_ParametrosReport, p_LayoutService)
+        {
+        }
+
+        public override object CM_CarregaDataSource()
+        {
+            var  options = new DbContextOptionsBuilder<MyContext>().UseNpgsql("Host=10.0.0.10;Port=5432;Database=gcad;User Id=rei;Password=teste;").Options;
+            var context = new MyContext(options);
+            var baseRepository = new BaseRepository<UserEntity>(context);
+
+            var m_DataSource = baseRepository._dataset.Where(a => a.ds_nome.Contains(C_ParametrosReport.ds_nome)).ToList();
+
+            var m_ListaUserDetail = new List<UserDetailDTO>();
+
+            foreach (var m_Registro in m_DataSource)
+                m_ListaUserDetail.Add(new UserDetailDTO()
+                {
+                    C_Codigo = m_Registro.cd_codigo,
+                    C_Nome = m_Registro.ds_nome
+                });
+
+            var m_Retorno = new UserDTO()
+            {
+                C_DataReport = DateTime.Now,
+                C_NomeReport = "Majin Buu",
+                C_ListaUsers = m_ListaUserDetail
+            };
+
+            return m_Retorno;
+        }
+
+    }
+
+    public abstract class IReport
+    {
+        public ParametrosReport C_ParametrosReport { get; set; }
+        public ILayoutService C_LayoutService { get; set; }
+
+        public IReport(ParametrosReport p_ParametrosReport, ILayoutService p_LayoutService)
+        {
+            C_ParametrosReport = p_ParametrosReport;
+            C_LayoutService = p_LayoutService;
+        }
+
+        public abstract object CM_CarregaDataSource();
+
+        public string CM_GetLayout()
+        {
+            var layoutFinded = C_LayoutService.Get(C_ParametrosReport.cd_report);
+            return layoutFinded.Result.ds_conteudo;
+        }
+    }
+
+
+
     public class ReportStorageWebExtension1 : DevExpress.XtraReports.Web.Extensions.ReportStorageWebExtension
     {
         private ILayoutService layoutService;
@@ -40,57 +132,34 @@ namespace Api.Application.Services
 
         public override byte[] GetData(string url)
         {
-            // Returns report layout data stored in a Report Storage using the specified URL. 
-            // This method is called only for valid URLs after the IsValidUrl method is called.
-            int idConvertido;
-            if (Int32.TryParse(url, out idConvertido))
-            {
-                XtraReport newReport = new XtraReport();
-                var layoutFinded = findLayout(idConvertido);
-                MemoryStream streamLayout = new MemoryStream(StringParaByteArray(layoutFinded.ds_conteudo));
-                newReport.LoadLayout(streamLayout);
+            var m_Filtros = new ParametrosReport() { ds_tipo_report = "dView", cd_report = 7, ds_nome = "reitech" };
+            var m_Serializer = new JavaScriptSerializer();
+            //var m_Filtros = m_Serializer.Deserialize<filtros>(p_Filtros);
 
-                ObjectDataSource ods = new ObjectDataSource()
-                {
-                    // Name = "MyDataDataSource",
-                    // DataSource = typeof(MyData), //Get the type where the GetCustomerProductsList method is registered  
-                    //Constructor = new ObjectConstructorInfo(), //Specify constructor if GetCustomerProductsList method is not static 
-                    Name = "MyDataDataSource",
-                    DataSource = typeof(MyData),
-                    DataMember = "GetData" //Specify method name  
-                };
-                newReport.DataSource = ods;
+            var m_IReport = FactoryReport.CM_GetReport(m_Filtros, layoutService);
 
-                MemoryStream streamReport = new MemoryStream();
-                newReport.SaveLayoutToXml(streamReport);
-                return streamReport.ToArray();
-            }
-            else
-            {
-                if (ReportsFactory.Reports.ContainsKey(url))
-                {
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        ReportsFactory.Reports[url]().SaveLayoutToXml(ms);
-                        return ms.ToArray();
-                    }
-                }
-                else
-                {
-                    XtraReport newReport = new XtraReport();
-                    using (MemoryStream output = new MemoryStream())
-                    {
-                        newReport.SaveLayoutToXml(output);
-                        return output.ToArray();
-                    }
-                }
-            }
-        }
+            var m_Layout = m_IReport.CM_GetLayout();
 
-        public LayoutEntity findLayout(int idReport)
-        {
-            var layoutFinded = layoutService.Get(idReport);
-            return layoutFinded.Result;
+            XtraReport newReport = new XtraReport();
+           
+            MemoryStream streamLayout = new MemoryStream(StringParaByteArray(m_Layout));
+            newReport.LoadLayout(streamLayout);
+
+            var m_Data = m_IReport.CM_CarregaDataSource();
+
+            var jsonSerializado = m_Serializer.Serialize(m_Data);
+            var json = new JsonDataSource();
+
+            json.JsonSource = new CustomJsonSource(jsonSerializado);
+            json.Name = m_Filtros.ds_tipo_report;
+            json.Fill();
+
+            newReport.DataSource = json;
+
+            MemoryStream streamReport = new MemoryStream();
+            newReport.SaveLayoutToXml(streamReport);
+
+            return streamReport.ToArray();
         }
 
         public override Dictionary<string, string> GetUrls()
