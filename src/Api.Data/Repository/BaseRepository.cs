@@ -12,7 +12,7 @@ namespace Api.Data.Repository
 
         protected readonly MyContext _context;
 
-        protected DbSet<T> _dataset;                                                                                                              
+        protected DbSet<T> _dataset;
 
         public BaseRepository(MyContext context)
         {
@@ -23,12 +23,12 @@ namespace Api.Data.Repository
         {
             try
             {
-                 // pega o objeto e procura no banco - se achar trás o objeto  ou volta nulo
-                 var result = await _dataset.SingleOrDefaultAsync(p => p.cd_codigo.Equals(cd_codigo));
+                // pega o objeto e procura no banco - se achar trás o objeto  ou volta nulo
+                var result = await _dataset.SingleOrDefaultAsync(p => p.cd_codigo.Equals(cd_codigo));
                 //se for nulo, para e retorna false
-                if(result== null)
+                if (result == null)
                     return false;
-                
+
                 //remove e salva no banco retornando true;
                 _dataset.Remove(result);
                 await _context.SaveChangesAsync();
@@ -36,7 +36,7 @@ namespace Api.Data.Repository
             }
             catch (Exception ex)
             {
-                
+
                 throw ex;
             }
         }
@@ -48,26 +48,26 @@ namespace Api.Data.Repository
 
         public async Task<T> InsertAsync(T item)
         {
-           try
-           {
-               //veriufica se veio com cd_codigo, se não seta com Gucd_codigo
-            //    if(item.cd_codigo == Guid.Empty){
-            //        item.cd_codigo = Guid.NewGuid();
-            //    }
-               //cria o creatat com o a data correta do servcd_codigoor
+            try
+            {
+                //veriufica se veio com cd_codigo, se não seta com Gucd_codigo
+                //    if(item.cd_codigo == Guid.Empty){
+                //        item.cd_codigo = Guid.NewGuid();
+                //    }
+                //cria o creatat com o a data correta do servcd_codigoor
                 //add o item ao banco
                 _dataset.Add(item);
                 //salva no banco se deu tudo ok
                 await _context.SaveChangesAsync();
-           }
+            }
 
-          
-           catch (Exception ex)
-           {
-               
-               throw ex;
-           }
-           return item;
+
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return item;
         }
 
         public async Task<T> SelectAsync(int cd_codigo)
@@ -79,7 +79,7 @@ namespace Api.Data.Repository
             }
             catch (Exception ex)
             {
-                
+
                 throw ex;
             }
         }
@@ -92,7 +92,7 @@ namespace Api.Data.Repository
             }
             catch (Exception ex)
             {
-                
+
                 throw ex;
             }
         }
@@ -105,7 +105,7 @@ namespace Api.Data.Repository
                 // pega o objeto e procura no banco - se achar trás o objeto preenchcd_codigoo ou volta nulo
                 var result = await _dataset.SingleOrDefaultAsync(p => p.cd_codigo.Equals(item.cd_codigo));
                 //se for nulo, para e retorna null
-                if(result== null)
+                if (result == null)
                     return null;
 
                 //o contexto pega o result, pega os dados correntes e seta os valores no objeto
@@ -116,7 +116,7 @@ namespace Api.Data.Repository
             }
             catch (Exception ex)
             {
-                
+
                 throw ex;
             }
             //se deu certo retorna o item

@@ -52,7 +52,7 @@ namespace Aplication
             opts => { opts.ResourcesPath = "Resources"; })
             .AddDataAnnotationsLocalization();
 
-            
+
             // services.AddMvc().ConfigureApplicationPartManager(x => {  
             // var parts = x.ApplicationParts;  
             // var aspNetCoreReportingAssemblyName = typeof(DevExpress.AspNetCore.Reporting.WebDocumentViewer.WebDocumentViewerController).Assembly.GetName().Name;  
@@ -61,22 +61,22 @@ namespace Aplication
             //     parts.Remove(reportingPart);  
             //     }  
             // });  
-            
+
 
             //services.AddControllers();
             services.AddDevExpressControls();
-            
+
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<IAuthorizationHandler, actionRequirement>();
 
-            
-             
-             services.AddMvcCore();
+
+
+            services.AddMvcCore();
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
-            
-            
+
+
             services.AddTransient<ReportStorageWebExtension, ReportStorageWebExtension1>();
 
             var signingConfigurations = new SigningConfigurations();
@@ -87,8 +87,8 @@ namespace Aplication
                 Configuration.GetSection("TokenConfiguration"))
                 .Configure(tokenConfigurations);
             services.AddSingleton(tokenConfigurations);
-            
-            
+
+
             services.AddAuthentication(authOptions =>
             {
                 authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -121,9 +121,9 @@ namespace Aplication
                     policy.RequireAuthenticatedUser();
                 });
             });
-            
 
-            
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v2", new OpenApiInfo
@@ -157,7 +157,7 @@ namespace Aplication
                     }
                 });
             });
-            
+
 
         }
 
@@ -166,7 +166,7 @@ namespace Aplication
         {
             //DevExpress.XtraReports.Web.Extensions.ReportStorageWebExtension.RegisterExtensionGlobal(new ReportStorageWebExtension1(service));
 
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -194,14 +194,14 @@ namespace Aplication
               );
 
             app.UseStaticFiles();
-            
+
             app.UseDevExpressControls();
 
             app.UseRouting();
 
 
             app.UseSwagger();
-            
+
             app.UseSwaggerUI(c =>
             {
                 c.RoutePrefix = string.Empty;
@@ -211,10 +211,10 @@ namespace Aplication
             var option = new RewriteOptions();
             option.AddRedirect("^$", "swagger");
             app.UseRewriter(option);
-            
+
             app.UseAuthorization();
 
-            
+
             app.UseHealthChecks("/health", new HealthCheckOptions()
             {
                 // WriteResponse é um delegate que permite alterar a saída.
@@ -233,7 +233,7 @@ namespace Aplication
                     return httpContext.Response.WriteAsync(json.ToString(Formatting.Indented));
                 }
             });
-            
+
 
             app.UseEndpoints(endpoints =>
             {

@@ -9,6 +9,7 @@ using System.Data;
 using System.IO;
 using DevExpress.DataAccess.ObjectBinding;
 using Api.Application.Data;
+using Api.Domain.Interfaces.Services.User;
 
 namespace Api.Application.Services
 {
@@ -16,9 +17,12 @@ namespace Api.Application.Services
     {
         private ILayoutService layoutService;
 
-        public ReportStorageWebExtension1(ILayoutService service)
+        private IUserService _userService;
+
+        public ReportStorageWebExtension1(ILayoutService service, IUserService userService)
         {
             layoutService = service;
+            _userService = userService;
         }
 
         public override bool CanSetData(string url)
@@ -59,16 +63,22 @@ namespace Api.Application.Services
                 {
                     Name = "MyDataDataSource",
                     DataSource = typeof(MyData), //Get the type where the GetCustomerProductsList method is registered  
-                    Constructor = new ObjectConstructorInfo(), //Specify constructor if GetCustomerProductsList method is not static 
+                    //Constructor = new ObjectConstructorInfo()
+                    Constructor = new ObjectConstructorInfo((new Parameter("service", typeof(IUserService), _userService))) //Specify constructor if GetCustomerProductsList method is not static 
                     // Name = "MyDataDataSource",
                     // DataSource = typeof(MyData),
                     // DataMember = "GetData" //Specify method name  
                 };
                 newReport.DataSource = ods;
 
-                MemoryStream streamReport = new MemoryStream();
-                newReport.SaveLayoutToXml(streamReport);
-                return streamReport.ToArray();
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    newReport.SaveLayoutToXml(stream);
+                    return stream.ToArray();
+                }
+                // MemoryStream streamReport = new MemoryStream();
+                // newReport.SaveLayoutToXml(streamReport);
+                // return streamReport.ToArray();
             }
             else
             {
