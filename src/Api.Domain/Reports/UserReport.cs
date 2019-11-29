@@ -1,13 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Api.Application.Data;
-using Api.Data.Context;
-using Api.Data.Repository;
-using Api.Domain.Entities;
 using Api.Domain.Interfaces.Services.LayoutService;
 using Api.Domain.Interfaces.Services.User;
-using Microsoft.EntityFrameworkCore;
 
 namespace Api.Application.Services
 {
@@ -30,7 +25,7 @@ namespace Api.Application.Services
             var m_DataSource = _userService.GetAll().Result;
 
             var m_ListaUserDetail = new List<UserDetailDTO>();
-            
+
             foreach (var m_Registro in m_DataSource)
                 m_ListaUserDetail.Add(new UserDetailDTO()
                 {

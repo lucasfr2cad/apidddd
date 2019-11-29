@@ -41,9 +41,8 @@ namespace Api.Application.Services
 
         public override byte[] GetData(string url)
         {
-            var m_Filtros = new ParametrosReport() { ds_tipo_report = "USER_REPORT", cd_report = 7, ds_data_source = "UserDataSource" };
             var m_Serializer = new JavaScriptSerializer();
-            //var m_Filtros = m_Serializer.Deserialize<filtros>(p_Filtros);
+            var m_Filtros = m_Serializer.Deserialize<ParametrosReport>(url);
 
             // build report model
             var m_IReport = FactoryReport.CM_GetReport(m_Filtros, services);
