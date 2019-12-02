@@ -9,11 +9,10 @@ namespace Api.Application.Controllers
     public class WebDocumentViewerController : DevExpress.AspNetCore.Reporting.Native.ControllerBase
     {
         public WebDocumentViewerController(IWebDocumentViewerMvcControllerService controllerService) : base(controllerService) { }
+
         public override Task<IActionResult> Invoke()
         {
             return base.Invoke();
         }
-
-        
     }
 }

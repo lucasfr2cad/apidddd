@@ -1,4 +1,4 @@
-using DevExpress.DataAccess.Sql;
+using DevExpress.AspNetCore.Reporting.ReportDesigner.Native.Services;
 using DevExpress.XtraReports.Web.ReportDesigner;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -6,12 +6,16 @@ using System.Collections.Generic;
 
 namespace Api.Application.Controllers
 {
-
-    [Route("[controller]/[action]")]
-    public class ReportDesignerController : Controller
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [Route("[controller]")]
+    [Route("DXXRD")]
+    public class ReportDesignerController : DevExpress.AspNetCore.Reporting.ReportDesigner.ReportDesignerController
     {
+        public ReportDesignerController(IReportDesignerMvcControllerService controllerService) : base(controllerService)
+        {
+        }
 
-
+        [HttpPost("[action]")]
         public ActionResult GetReportDesignerModel(string reportUrl)
         {
             string modelJsonScript =
@@ -23,8 +27,10 @@ namespace Api.Application.Controllers
                     "DXXRDV",// The URI path of the default controller that that processes requests from the Web Document Viewer.
                     "DXXQB"      // The URI path of the default controller that processes requests from the Query Builder.
                 );
-            return Content(modelJsonScript, "application/json");
+            var retorno = Content(modelJsonScript, "application/json");
+            return retorno;
         }
+
 
 
 
