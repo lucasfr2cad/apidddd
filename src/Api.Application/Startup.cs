@@ -5,7 +5,6 @@ using System.Linq;
 using Api.Application.Policy;
 using Api.Application.Services;
 using Api.CrossCutting.DependencyInjection;
-using Api.Domain.Interfaces.Services.LayoutService;
 using Api.Domain.Security;
 using DevExpress.AspNetCore;
 using DevExpress.XtraReports.Web.Extensions;
@@ -35,7 +34,6 @@ namespace Aplication
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
         }
 
         public IConfiguration Configuration { get; }
@@ -51,31 +49,28 @@ namespace Aplication
             opts => { opts.ResourcesPath = "Resources"; })
             .AddDataAnnotationsLocalization();
 
-            
-            // services.AddMvc().ConfigureApplicationPartManager(x => {  
-            // var parts = x.ApplicationParts;  
-            // var aspNetCoreReportingAssemblyName = typeof(DevExpress.AspNetCore.Reporting.WebDocumentViewer.WebDocumentViewerController).Assembly.GetName().Name;  
-            // var reportingPart = parts.FirstOrDefault(part => part.Name == aspNetCoreReportingAssemblyName);  
-            //     if (reportingPart != null) {  
-            //     parts.Remove(reportingPart);  
-            //     }  
-            // });  
-            
+            services.AddDevExpressControls(settings => settings.Resources = ResourcesType.ThirdParty | ResourcesType.DevExtreme);
+            services.AddMvc().ConfigureApplicationPartManager(x =>
+            {
+                var parts = x.ApplicationParts;
+                var aspNetCoreReportingAssemblyName = typeof(DevExpress.AspNetCore.Reporting.ReportDesigner.ReportDesignerController).Assembly.GetName().Name;
+                var reportingPart = parts.FirstOrDefault(part => part.Name == aspNetCoreReportingAssemblyName);
+                if (reportingPart != null)
+                {
+                    parts.Remove(reportingPart);
+                }
+            });
 
             //services.AddControllers();
-            services.AddDevExpressControls();
-            
+
             services.AddHttpContextAccessor();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<IAuthorizationHandler, actionRequirement>();
 
-            
-             
-             services.AddMvcCore();
+            services.AddMvcCore();
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
-            
-            
+
             services.AddTransient<ReportStorageWebExtension, CustomReportStorageWebExtension>();
 
             var signingConfigurations = new SigningConfigurations();
@@ -86,8 +81,7 @@ namespace Aplication
                 Configuration.GetSection("TokenConfiguration"))
                 .Configure(tokenConfigurations);
             services.AddSingleton(tokenConfigurations);
-            
-            
+
             services.AddAuthentication(authOptions =>
             {
                 authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -110,7 +104,6 @@ namespace Aplication
                 .RequireAuthenticatedUser().Build());
             });
 
-
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("actionRequirement", policy =>
@@ -120,9 +113,7 @@ namespace Aplication
                     policy.RequireAuthenticatedUser();
                 });
             });
-            
 
-            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v2", new OpenApiInfo
@@ -156,27 +147,24 @@ namespace Aplication
                     }
                 });
             });
-            
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILayoutService service)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             //DevExpress.XtraReports.Web.Extensions.ReportStorageWebExtension.RegisterExtensionGlobal(new ReportStorageWebExtension1(service));
 
-            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
             var supportedCultures = new[]
-          {
+            {
                new CultureInfo("es-PY"),
                new CultureInfo("en-US"),
                new CultureInfo("pt-BR"),
-           };
+            };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US"),
@@ -187,20 +175,20 @@ namespace Aplication
             });
 
             app.UseCors(x => x
-              .AllowAnyHeader()
+                       .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowAnyOrigin()
-              );
+            );
 
             app.UseStaticFiles();
-            
+
             app.UseDevExpressControls();
 
             app.UseRouting();
 
 
             app.UseSwagger();
-            
+
             app.UseSwaggerUI(c =>
             {
                 c.RoutePrefix = string.Empty;
@@ -210,10 +198,9 @@ namespace Aplication
             var option = new RewriteOptions();
             option.AddRedirect("^$", "swagger");
             app.UseRewriter(option);
-            
+
             app.UseAuthorization();
 
-            
             app.UseHealthChecks("/health", new HealthCheckOptions()
             {
                 // WriteResponse é um delegate que permite alterar a saída.
@@ -232,7 +219,7 @@ namespace Aplication
                     return httpContext.Response.WriteAsync(json.ToString(Formatting.Indented));
                 }
             });
-            
+
 
             app.UseEndpoints(endpoints =>
             {
