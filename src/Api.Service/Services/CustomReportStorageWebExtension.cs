@@ -41,6 +41,12 @@ namespace Api.Application.Services
 
         public override byte[] GetData(string url)
         {
+
+            if (string.IsNullOrEmpty(url))
+            {
+                return new byte[0];
+            }
+
             var m_Serializer = new JavaScriptSerializer();
             var m_Filtros = m_Serializer.Deserialize<ParametrosReport>(url);
 

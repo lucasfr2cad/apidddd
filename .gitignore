@@ -20,5 +20,4 @@ src/Api.Tests/bin
 src/Api.Tests/obj
 
 .vscode
-
-
+src/.vs
