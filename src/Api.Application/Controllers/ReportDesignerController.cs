@@ -27,8 +27,7 @@ namespace Api.Application.Controllers
                     "DXXRDV",// The URI path of the default controller that that processes requests from the Web Document Viewer.
                     "DXXQB"      // The URI path of the default controller that processes requests from the Query Builder.
                 );
-            var retorno = Content(modelJsonScript, "application/json");
-            return retorno;
+            return Content(modelJsonScript, "application/json");
         }
 
 
